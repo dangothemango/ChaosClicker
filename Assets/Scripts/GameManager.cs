@@ -8,15 +8,6 @@ public class GameManager : MonoBehaviour {
 
     float chaos = 0;
 
-    [Header("Road Parents")]
-    public GameObject topRoad;
-    public GameObject middleRoad;
-    public GameObject bottomRoad;
-
-    House[] topHouses;
-    House[] middleHouses;
-    House[] bottomHouses;
-
     float Chaos {
         get {
             return chaos;
