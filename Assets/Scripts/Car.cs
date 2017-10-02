@@ -32,4 +32,8 @@ public class Car : MonoBehaviour {
         newP.y = oY + Mathf.Sin(period*t)/magnitude;
         transform.localPosition = newP;
 	}
+
+    public void OnBecameInvisible() {
+        Destroy(this.gameObject);
+    }
 }
