@@ -7,16 +7,18 @@ public class Person : MonoBehaviour {
     public float speed = 1f;
     public float period = 1f;
     public float magnitude = 1f;
+    public float scaleTime = 1f;
 
     House target;
-    bool seeking = true;
+    bool seeking = false;
     float oRot;
     float t = 0;
 
 	// Use this for initialization
 	void Start () {
-        oRot = transform.localRotation.eulerAngles.y;
-	}
+        StartCoroutine(ScaleUp());
+        oRot = transform.localRotation.eulerAngles.z;
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -26,6 +28,10 @@ public class Person : MonoBehaviour {
             Vector3 rot = transform.localRotation.eulerAngles;
             rot.z = (oRot + Mathf.Sin(period * t) / magnitude);
             transform.localRotation = Quaternion.Euler(rot);
+            if (Vector2.Distance(transform.position,target.transform.position) < .1f) {
+                seeking = false;
+                StartCoroutine(ScaleDown());
+            }
         }
 	}
 
@@ -34,7 +40,30 @@ public class Person : MonoBehaviour {
             return false;
         } else {
             target = h;
+            transform.localRotation = Quaternion.Euler(0, target.transform.position.x-transform.position.x > 0 ? 180 : 0, 0);
             return true;
         }
+    }
+
+    IEnumerator ScaleUp() {
+        Vector2 oScale = transform.localScale;
+        float sT = 0;
+        while (sT < scaleTime) {
+            sT += Time.deltaTime;
+            transform.localScale = Vector2.Lerp(Vector2.zero, oScale, sT / scaleTime);
+            yield return null;
+        }
+        seeking = true;
+    }
+
+    IEnumerator ScaleDown() {
+        Vector2 oScale = transform.localScale;
+        float sT = 0;
+        while (sT < scaleTime) {
+            sT += Time.deltaTime;
+            transform.localScale = Vector2.Lerp(oScale, Vector3.zero, sT / scaleTime);
+            yield return null;
+        }
+        Destroy(this.gameObject);
     }
 }
