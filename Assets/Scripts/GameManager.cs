@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager INSTANCE;
 
+    List<Person> people;
     float chaos = 0;
 
     float Chaos {
@@ -24,10 +25,15 @@ public class GameManager : MonoBehaviour {
             return;
         }
         INSTANCE = this;
+        people = new List<Person>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
 	}
+
+    public void AddPerson(Person p) {
+        people.Add(p);
+    }
 }

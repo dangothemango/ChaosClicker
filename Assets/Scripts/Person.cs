@@ -4,13 +4,37 @@ using UnityEngine;
 
 public class Person : MonoBehaviour {
 
+    public float speed = 1f;
+    public float period = 1f;
+    public float magnitude = 1f;
+
+    House target;
+    bool seeking = true;
+    float oRot;
+    float t = 0;
+
 	// Use this for initialization
 	void Start () {
-		
+        oRot = transform.localRotation.eulerAngles.y;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if (target != null && seeking) {
+            t += Time.deltaTime;
+            transform.localPosition = Vector3.MoveTowards(transform.localPosition,target.transform.localPosition,speed*Time.deltaTime);
+            Vector3 rot = transform.localRotation.eulerAngles;
+            rot.z = (oRot + Mathf.Sin(period * t) / magnitude);
+            transform.localRotation = Quaternion.Euler(rot);
+        }
 	}
+
+    public bool SetTarget(House h) {
+        if (h.transform.position == transform.position) {
+            return false;
+        } else {
+            target = h;
+            return true;
+        }
+    }
 }

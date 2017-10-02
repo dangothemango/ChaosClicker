@@ -698,6 +698,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   car: {fileID: 1449145488937462, guid: 380f23b5dc3406b46884ef20750789f8, type: 2}
+  person: {fileID: 1917280621919270, guid: 4fff2507089ad0c439d39039e7a7cddc, type: 2}
   leftSpawn: {fileID: 1249380770141304}
   rightSpawn: {fileID: 1972512725778040}
 --- !u!212 &212094127542694330
