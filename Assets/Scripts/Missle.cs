@@ -37,7 +37,7 @@ public class Missle : MonoBehaviour {
         if (collision.gameObject == target.gameObject) {
             Person p = target.GetComponent<Person>();
             if (p != null) {
-                p.OnHit();
+                p.onMissileHit();
                 Instantiate(explosion, target.position, new Quaternion(), GameManager.INSTANCE.gameObject.transform);
             }
             else {

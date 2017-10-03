@@ -39,7 +39,7 @@ public class Cloud : MonoBehaviour {
         if (target != null) {
             if (Vector2.Distance(transform.position, target.position + new Vector3(.397004f, 1.521376f, 0)) < .1f) {
                 StartCoroutine(LightningStrike());
-                target.GetComponent<Person>().OnHit();
+                target.GetComponent<Person>().OnLightningHit();
                 age++;
                 target = null;
             }

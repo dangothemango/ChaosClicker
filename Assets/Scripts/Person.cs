@@ -18,6 +18,9 @@ public class Person : MonoBehaviour {
     Rigidbody2D rigidBody;
     bool sentient = false;
 
+    bool isOnFire = false;
+    float fireTimer = 0;
+
     public SpriteRenderer Body;
     public SpriteRenderer Floater;
 
@@ -26,9 +29,12 @@ public class Person : MonoBehaviour {
     public Sprite[] confused;
     public Sprite questionMark;
     public Sprite exclamationMark;
+    public Sprite fire;
 
-	// Use this for initialization
-	void Start () {
+   
+
+    // Use this for initialization
+    void Start () {
         rigidBody = GetComponent<Rigidbody2D>();
         StartCoroutine(ScaleUp(scaleTime));
         oRot = transform.localRotation.eulerAngles.z;
@@ -62,7 +68,32 @@ public class Person : MonoBehaviour {
                 transform.localRotation = Quaternion.Euler(rot);
             }
         }
-	}
+
+        if (isOnFire)
+        {
+            if (Random.Range(0, 1.0f) > .9f)
+            {
+                direction *= -1;
+            }
+            //if the fire should no longer be updated
+            if (!updateFire())
+            {
+                print("should be done");
+                //ScaleDown(.5f);
+                seeking = false;
+
+                Color c = Body.color;
+                c.a -= Time.deltaTime;
+                Body.color = c;
+                print(c.a);
+                if (c.a <= 0)
+                {
+                    print("destroyed?");
+                    Destroy(this.gameObject);
+                }
+            }
+        }
+    }
 
     public bool SetTarget(House h) {
         if (h == null) {
@@ -108,9 +139,28 @@ public class Person : MonoBehaviour {
         GameManager.INSTANCE.RemovePerson(this);
     }
 
-    public void OnHit() {
+    public void onMissileHit()
+    {
         seeking = false;
         StartCoroutine(SusAndDie());
+    }
+
+    public void OnLightningHit()
+    {
+        isOnFire = true;
+        //seeking = false;
+        target = null;
+        speed = 2f;
+        //StartCoroutine(SusAndDie());
+    }
+
+    //returns true while the player alive and the fire should be updated
+    private bool updateFire()
+    {
+        fireTimer += Time.deltaTime;
+        print("fireTimer: " + fireTimer);
+
+        return fireTimer < 5f;
     }
 
     IEnumerator SusAndDie() {
@@ -135,6 +185,12 @@ public class Person : MonoBehaviour {
             seeking = false;
             rigidBody.velocity = (transform.position - collision.transform.position.normalized) * launchSpeed;
             StartCoroutine(LaunchAndDie(2f));
+        }
+
+
+        if (isOnFire)
+        {
+            Body.sprite = fire;
         }
     }
 
