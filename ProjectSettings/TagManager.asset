@@ -56,3 +56,6 @@ TagManager:
   - name: People Effects
     uniqueID: 709620915
     locked: 0
+  - name: Sentient
+    uniqueID: 233680179
+    locked: 0

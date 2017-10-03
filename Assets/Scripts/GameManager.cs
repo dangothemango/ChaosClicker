@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour {
     public GameObject thunderCloud;
     public Transform[] missleSpawns;
 
-    Person virus;
+    public Person virus;
 
     public Person Virus {
         get {
@@ -97,11 +97,10 @@ public class GameManager : MonoBehaviour {
         if (Chaos < .05f) {
             Chaos += .01f;
         }
-        else if (virus == null)
+        else if (virus == null) {
             Debug.Log("Sentience");
             virus = GetRandomPerson().BecomeSentient();
             people.Remove(virus);
-        }
-        
+        } 
     }
 }
