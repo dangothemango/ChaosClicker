@@ -16,6 +16,7 @@ public class Person : MonoBehaviour {
     float t = 0;
     int direction = 1;
     Rigidbody2D rigidBody;
+    bool sentient = false;
 
     public SpriteRenderer Body;
 
@@ -140,6 +141,10 @@ public class Person : MonoBehaviour {
     }
 
     public Person BecomeSentient() {
+        seeking = false;
+        sentient = true;
+        Body.sortingLayerName = "Sentient";
+        transform.position = GameManager.INSTANCE.chaosButton.transform.position;
         return this;
     }
 }

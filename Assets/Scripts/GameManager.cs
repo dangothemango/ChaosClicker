@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager INSTANCE;
 
+    public GameObject chaosButton;
     public GameObject thunderCloud;
     public Transform[] missleSpawns;
 
@@ -92,7 +93,8 @@ public class GameManager : MonoBehaviour {
     }
 
     public void IncChaos() {
-        if (Chaos < 1) {
+        //TODO change this to 1f
+        if (Chaos < .05f) {
             chaos += .01f;
         } else {
             virus = GetRandomPerson().BecomeSentient();
