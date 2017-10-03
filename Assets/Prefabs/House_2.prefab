@@ -52,6 +52,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 791722698ef564445a1691fa9bff1c11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosion: {fileID: 21300000, guid: 67e66bb4b8b859149842cd8acbe5aef5, type: 3}
+  state: 0
 --- !u!212 &212578387350601600
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -82,15 +84,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1844434225
-  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b1c5fdd03aff4074bbadb0204ec1a5f0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 7.52, y: 11.1}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0

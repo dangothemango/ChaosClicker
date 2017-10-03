@@ -38,7 +38,6 @@ GameObject:
   - component: {fileID: 4005241524472766}
   - component: {fileID: 212699154210646898}
   - component: {fileID: 114423978419524308}
-  - component: {fileID: 82567074404853542}
   m_Layer: 0
   m_Name: ThunderCloud
   m_TagString: Untagged
@@ -87,86 +86,6 @@ BoxCollider2D:
   m_Offset: {x: -0.38849354, y: -3.9324007}
   serializedVersion: 2
   m_Size: {x: 37.167633, y: 23.0748}
---- !u!82 &82567074404853542
-AudioSource:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1443468704474874}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: d2be1e42ff1e44d4a9e3aa02e96327d1, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 0.5
-  m_Pitch: 0
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 0.671
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
 --- !u!114 &114423978419524308
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -180,8 +99,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0.5
   lightning: {fileID: 212125857621530052}
-  ThunderClap: {fileID: 8300000, guid: d2be1e42ff1e44d4a9e3aa02e96327d1, type: 3}
-  volume: 0.5
 --- !u!212 &212125857621530052
 SpriteRenderer:
   m_ObjectHideFlags: 1

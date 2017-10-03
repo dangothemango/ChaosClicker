@@ -6,13 +6,9 @@ public class Cloud : MonoBehaviour {
 
     public float speed = 2f;
     public SpriteRenderer lightning;
-	public AudioClip ThunderClap;
-	public float volume = .5f;
 
     int age = 1;
-
-	private AudioSource source;
-
+	AudioSource source;
     Transform target;
 
     Transform Target{
@@ -31,8 +27,7 @@ public class Cloud : MonoBehaviour {
         float yV = 1 - xV;
         direction = new Vector2(transform.position.x < 0 ? xV : -1 * xV, transform.position.y < 0 ? yV : -1 * yV).normalized;
         GameManager.INSTANCE.AddCloud(this);
-
-		source = GetComponent<AudioSource> ();
+		source = GameObject.Find ("Audio_Main").GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -65,9 +60,10 @@ public class Cloud : MonoBehaviour {
     }
 
     IEnumerator LightningStrike() {
+		source.GetComponent<AudioController> ().playThunder ();		//Trigger sound effect
+
         lightning.gameObject.SetActive(true);
         yield return new WaitForSeconds(.2f);
-		source.PlayOneShot (ThunderClap, volume);
         lightning.gameObject.SetActive(false);
     }
 }
