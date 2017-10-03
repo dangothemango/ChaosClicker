@@ -24,9 +24,8 @@ public class Road : MonoBehaviour {
         if (Random.Range(0, 1.0f) > .9964f) {
             Instantiate(car, (Random.Range(0, 1.0f) > .5f ? leftSpawn : rightSpawn).transform.position,Quaternion.Euler(0,0,0),transform);
         }
-        if (Random.Range(0, 1.0f) > .99164f) {
-            Person p = Instantiate(person, houses[Random.Range(0, houses.Length)].transform.position, Quaternion.Euler(0, 0, 0), transform).GetComponent<Person>();
-            GameManager.INSTANCE.AddPerson(p);
+        if (Random.Range(0, 1.0f) > .9964f) {
+            Person p=Instantiate(person, houses[Random.Range(0, houses.Length)].transform.position, Quaternion.Euler(0, 0, 0), transform).GetComponent<Person>();
             while (!p.SetTarget(houses[Random.Range(0, houses.Length)]));
         }
 	}

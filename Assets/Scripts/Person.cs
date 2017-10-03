@@ -18,6 +18,7 @@ public class Person : MonoBehaviour {
 	void Start () {
         StartCoroutine(ScaleUp());
         oRot = transform.localRotation.eulerAngles.z;
+        GameManager.INSTANCE.AddPerson(this);
     }
 	
 	// Update is called once per frame
@@ -65,5 +66,9 @@ public class Person : MonoBehaviour {
             yield return null;
         }
         Destroy(this.gameObject);
+    }
+
+    private void OnDestroy() {
+        GameManager.INSTANCE.RemovePerson(this);
     }
 }

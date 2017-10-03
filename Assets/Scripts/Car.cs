@@ -21,7 +21,7 @@ public class Car : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-		
+        GameManager.INSTANCE.AddCar(this);
 	}
 	
 	// Update is called once per frame
@@ -35,5 +35,9 @@ public class Car : MonoBehaviour {
 
     public void OnBecameInvisible() {
         Destroy(this.gameObject);
+    }
+
+    private void OnDestroy() {
+        GameManager.INSTANCE.RemoveCar(this);
     }
 }
