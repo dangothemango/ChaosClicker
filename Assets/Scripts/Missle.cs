@@ -6,7 +6,7 @@ public class Missle : MonoBehaviour {
 
     public float speed;
 
-    House target;
+    Transform target;
 
 	// Use this for initialization
 	void Start () {
@@ -16,18 +16,31 @@ public class Missle : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (target != null) {
-            transform.position = Vector2.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+            transform.up = target.position - transform.position;
         }
 	}
 
     public void SetTarget(House h) {
-        target = h;
-        transform.up = target.transform.position - transform.position;
+        if (h == null) {
+            target = GameManager.INSTANCE.GetRandomPerson().transform;
+        }
+        else {
+            target = h.transform;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject == target.gameObject) {
-            target.OnHit();
+            Person p = target.GetComponent<Person>();
+            if (p != null) {
+                p.OnHit();
+                //TODO: Explode on person
+            } else {
+                House h = target.GetComponent<House>();
+                h.OnHit();
+            }
+            
             Destroy(this.gameObject);
         }
     }

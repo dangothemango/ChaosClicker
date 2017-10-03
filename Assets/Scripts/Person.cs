@@ -13,6 +13,7 @@ public class Person : MonoBehaviour {
     bool seeking = false;
     float oRot;
     float t = 0;
+    int direction = 1;
 
     public SpriteRenderer Body;
 
@@ -29,29 +30,47 @@ public class Person : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (target != null && seeking) {
-            if (target.state == 1) {
-                //TODO: Go Nuts
-                return;
+        t += Time.deltaTime;
+        if (seeking) {
+            if (target != null && target.state == 0) {
+                if (target.state == 0) {
+                    transform.localPosition = Vector3.MoveTowards(transform.localPosition, target.transform.localPosition, speed * Time.deltaTime);
+                    Vector3 rot = transform.localRotation.eulerAngles;
+                    rot.z = (oRot + Mathf.Sin(period * t) / magnitude);
+                    transform.localRotation = Quaternion.Euler(rot);
+                    if (Vector2.Distance(transform.position, target.transform.position) < .1f) {
+                        seeking = false;
+                        StartCoroutine(ScaleDown(scaleTime));
+                    }
+                }
             }
-            t += Time.deltaTime;
-            transform.localPosition = Vector3.MoveTowards(transform.localPosition,target.transform.localPosition,speed*Time.deltaTime);
-            Vector3 rot = transform.localRotation.eulerAngles;
-            rot.z = (oRot + Mathf.Sin(period * t) / magnitude);
-            transform.localRotation = Quaternion.Euler(rot);
-            if (Vector2.Distance(transform.position,target.transform.position) < .1f) {
-                seeking = false;
-                StartCoroutine(ScaleDown(scaleTime));
+            else {
+                if (Random.Range(0, 1.0f) > .99845f) {
+                    direction *= -1;
+                    transform.localRotation = Quaternion.Euler(0, direction > 0 ? 180 : 0, 0);
+                }
+                transform.localPosition += direction * Vector3.right * speed * 2 * Time.deltaTime;
+                Vector3 rot = transform.localRotation.eulerAngles;
+                rot.z = (oRot + Mathf.Sin(period * 2 * t) / magnitude);
+                transform.localRotation = Quaternion.Euler(rot);
             }
         }
 	}
 
     public bool SetTarget(House h) {
+        if (h == null) {
+            target = null;
+            seeking = true;
+            direction = transform.localPosition.x < 0 ? 1 : -1;
+            transform.localRotation = Quaternion.Euler(0, direction > 0 ? 180 : 0, 0);
+            return true;
+        }
         if (h.transform.position == transform.position) {
             return false;
         } else {
             target = h;
-            transform.localRotation = Quaternion.Euler(0, target.transform.position.x-transform.position.x > 0 ? 180 : 0, 0);
+            direction = target.transform.position.x - transform.position.x > 0 ? 1 : -1;
+            transform.localRotation = Quaternion.Euler(0, direction > 0 ? 180 : 0, 0);
             return true;
         }
     }
@@ -96,5 +115,10 @@ public class Person : MonoBehaviour {
         if (collision.gameObject.GetComponentInParent<Cloud>() != null) {
             Body.sprite = confused[Random.Range(0,confused.Length)];
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision) {
+        direction *= -1;
+        transform.localRotation = Quaternion.Euler(0, direction > 0 ? 180 : 0, 0);
     }
 }
