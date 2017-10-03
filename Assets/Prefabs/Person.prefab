@@ -132,6 +132,7 @@ MonoBehaviour:
   period: 10
   magnitude: 0.1
   scaleTime: 1
+  launchSpeed: 4
   Body: {fileID: 212544441028419702}
   surprised: {fileID: 21300000, guid: a58fa99278c742a439d3deb8b3b9ba99, type: 3}
   confused:

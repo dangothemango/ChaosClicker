@@ -8,12 +8,14 @@ public class Person : MonoBehaviour {
     public float period = 1f;
     public float magnitude = 1f;
     public float scaleTime = 1f;
+    public float launchSpeed = 10f;
 
     House target;
     bool seeking = false;
     float oRot;
     float t = 0;
     int direction = 1;
+    Rigidbody2D rigidBody;
 
     public SpriteRenderer Body;
 
@@ -23,6 +25,7 @@ public class Person : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        rigidBody = GetComponent<Rigidbody2D>();
         StartCoroutine(ScaleUp(scaleTime));
         oRot = transform.localRotation.eulerAngles.z;
         GameManager.INSTANCE.AddPerson(this);
@@ -111,9 +114,23 @@ public class Person : MonoBehaviour {
         yield return ScaleDown(.5f);
     }
 
+    IEnumerator LaunchAndDie(float t) {
+        float eT = 0;
+        while (eT < t) {
+            eT += Time.deltaTime;
+            transform.Rotate(0, 0, 180 * Time.deltaTime);
+            yield return null;
+        }
+        Destroy(this.gameObject);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.GetComponentInParent<Cloud>() != null) {
             Body.sprite = confused[Random.Range(0,confused.Length)];
+        } else if (collision.gameObject.GetComponent<Explosion>() != null){
+            seeking = false;
+            rigidBody.velocity = (transform.position - collision.transform.position.normalized) * launchSpeed;
+            StartCoroutine(LaunchAndDie(2f));
         }
     }
 
