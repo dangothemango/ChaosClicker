@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4692147765415358}
   - component: {fileID: 212544441028419702}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4122768950448044}
   - component: {fileID: 114456589199126898}
-  m_Layer: 0
+  - component: {fileID: 50587353009177520}
+  - component: {fileID: 61277890830205120}
+  m_Layer: 8
   m_Name: Person
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50,7 +52,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1917280621919270}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.1203666, y: 5.9982233, z: 0}
+  m_LocalPosition: {x: 3.40265, y: 8.288198, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children:
   - {fileID: 4692147765415358}
@@ -70,6 +72,51 @@ Transform:
   m_Father: {fileID: 4122768950448044}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &50587353009177520
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1917280621919270}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!61 &61277890830205120
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1917280621919270}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!114 &114456589199126898
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -85,6 +132,13 @@ MonoBehaviour:
   period: 10
   magnitude: 0.1
   scaleTime: 1
+  Body: {fileID: 212544441028419702}
+  surprised: {fileID: 21300000, guid: a58fa99278c742a439d3deb8b3b9ba99, type: 3}
+  confused:
+  - {fileID: 21300000, guid: af42613a2f5ebea4883dc3743d92b7df, type: 3}
+  - {fileID: 21300000, guid: 0706d65976d2c5d4396aa78744fbfc4f, type: 3}
+  - {fileID: 21300000, guid: 9a719d5fdc2923d4eaead064dafce2c6, type: 3}
+  - {fileID: 21300000, guid: 17be3b57e2e88384f91179aaa48966fe, type: 3}
 --- !u!212 &212544441028419702
 SpriteRenderer:
   m_ObjectHideFlags: 1

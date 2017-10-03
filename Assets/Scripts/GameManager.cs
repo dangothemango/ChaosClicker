@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour {
     List<Car> cars;
     float chaos = 0;
 
-    float Chaos {
+    public float Chaos {
         get {
             return chaos;
         }
@@ -65,9 +65,20 @@ public class GameManager : MonoBehaviour {
         clouds.Remove(c);
     }
 
+    public Person GetRandomPerson() {
+        if (people.Count == 0) {
+            return null;
+        }
+        return people[Random.Range(0, people.Count)];
+    }
+
     void SpawnCloud() {
         float x = Random.Range(-10.0f, 10.0f);
         float y = Mathf.Sqrt(100.0f - (x * x))*(Random.Range(0, 1.0f) > .5f ? -1 : 1);
         Instantiate(thunderCloud, new Vector3(x,y,0), Quaternion.Euler(0, 0, 0), transform);
+    }
+
+    public void IncChaos() {
+        chaos += .01f;
     }
 }

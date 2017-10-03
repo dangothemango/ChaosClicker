@@ -21,10 +21,10 @@ public class Road : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Random.Range(0, 1.0f) > .9964f) {
+        if (Random.Range(0, 1.0f) > .9964f-GameManager.INSTANCE.Chaos/10) {
             Instantiate(car, (Random.Range(0, 1.0f) > .5f ? leftSpawn : rightSpawn).transform.position,Quaternion.Euler(0,0,0),transform);
         }
-        if (Random.Range(0, 1.0f) > .9964f) {
+        if (Random.Range(0, 1.0f) > .9964f-GameManager.INSTANCE.Chaos/10) {
             Person p=Instantiate(person, houses[Random.Range(0, houses.Length)].transform.position, Quaternion.Euler(0, 0, 0), transform).GetComponent<Person>();
             while (!p.SetTarget(houses[Random.Range(0, houses.Length)]));
         }

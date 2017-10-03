@@ -14,9 +14,15 @@ public class Person : MonoBehaviour {
     float oRot;
     float t = 0;
 
+    public SpriteRenderer Body;
+
+    [Header("Sprites")]
+    public Sprite surprised;
+    public Sprite[] confused;
+
 	// Use this for initialization
 	void Start () {
-        StartCoroutine(ScaleUp());
+        StartCoroutine(ScaleUp(scaleTime));
         oRot = transform.localRotation.eulerAngles.z;
         GameManager.INSTANCE.AddPerson(this);
     }
@@ -31,7 +37,7 @@ public class Person : MonoBehaviour {
             transform.localRotation = Quaternion.Euler(rot);
             if (Vector2.Distance(transform.position,target.transform.position) < .1f) {
                 seeking = false;
-                StartCoroutine(ScaleDown());
+                StartCoroutine(ScaleDown(scaleTime));
             }
         }
 	}
@@ -46,7 +52,7 @@ public class Person : MonoBehaviour {
         }
     }
 
-    IEnumerator ScaleUp() {
+    IEnumerator ScaleUp(float scaleTime) {
         Vector2 oScale = transform.localScale;
         float sT = 0;
         while (sT < scaleTime) {
@@ -57,7 +63,7 @@ public class Person : MonoBehaviour {
         seeking = true;
     }
 
-    IEnumerator ScaleDown() {
+    IEnumerator ScaleDown(float scaleTime) {
         Vector2 oScale = transform.localScale;
         float sT = 0;
         while (sT < scaleTime) {
@@ -70,5 +76,21 @@ public class Person : MonoBehaviour {
 
     private void OnDestroy() {
         GameManager.INSTANCE.RemovePerson(this);
+    }
+
+    public void OnHit() {
+        seeking = false;
+        StartCoroutine(SusAndDie());
+    }
+
+    IEnumerator SusAndDie() {
+        Body.sprite = surprised;
+        yield return ScaleDown(.5f);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if (collision.gameObject.GetComponentInParent<Cloud>() != null) {
+            Body.sprite = confused[Random.Range(0,confused.Length)];
+        }
     }
 }
