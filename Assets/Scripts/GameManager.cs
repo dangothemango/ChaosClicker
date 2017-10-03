@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour {
     public static GameManager INSTANCE;
 
     public GameObject thunderCloud;
+    public Transform[] missleSpawns;
 
     List<Person> people;
     List<Cloud> clouds;
@@ -76,6 +77,10 @@ public class GameManager : MonoBehaviour {
         float x = Random.Range(-10.0f, 10.0f);
         float y = Mathf.Sqrt(100.0f - (x * x))*(Random.Range(0, 1.0f) > .5f ? -1 : 1);
         Instantiate(thunderCloud, new Vector3(x,y,0), Quaternion.Euler(0, 0, 0), transform);
+    }
+
+    public Transform GetRandomMissleSpawn() {
+        return missleSpawns[Random.Range(0, missleSpawns.Length)];
     }
 
     public void IncChaos() {

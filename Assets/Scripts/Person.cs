@@ -30,6 +30,10 @@ public class Person : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (target != null && seeking) {
+            if (target.state == 1) {
+                //TODO: Go Nuts
+                return;
+            }
             t += Time.deltaTime;
             transform.localPosition = Vector3.MoveTowards(transform.localPosition,target.transform.localPosition,speed*Time.deltaTime);
             Vector3 rot = transform.localRotation.eulerAngles;

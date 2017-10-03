@@ -6,27 +6,38 @@ public class Road : MonoBehaviour {
 
     public GameObject car;
     public GameObject person;
+    public GameObject missle;
 
     [Header("Car Spawns")]
     public GameObject leftSpawn;
     public GameObject rightSpawn;
 
 
-    House[] houses;
+    List<House> houses;
 
 	// Use this for initialization
 	void Start () {
-        houses = GetComponentsInChildren<House>();
+        houses = new List<House>(GetComponentsInChildren<House>());
 	}
 	
 	// Update is called once per frame
 	void Update () {
+        if (Input.GetKeyDown(KeyCode.M) || Random.Range(0, 1.0f) <= GameManager.INSTANCE.Chaos / 19) {
+            Missle m = Instantiate(missle, GameManager.INSTANCE.GetRandomMissleSpawn().position, Quaternion.Euler(0, 0, 0), transform).GetComponent<Missle>();
+            m.SetTarget(houses[Random.Range(0, houses.Count)]);
+        }
+
         if (Random.Range(0, 1.0f) > .9964f-GameManager.INSTANCE.Chaos/10) {
             Instantiate(car, (Random.Range(0, 1.0f) > .5f ? leftSpawn : rightSpawn).transform.position,Quaternion.Euler(0,0,0),transform);
         }
-        if (Random.Range(0, 1.0f) > .9964f-GameManager.INSTANCE.Chaos/10) {
-            Person p=Instantiate(person, houses[Random.Range(0, houses.Length)].transform.position, Quaternion.Euler(0, 0, 0), transform).GetComponent<Person>();
-            while (!p.SetTarget(houses[Random.Range(0, houses.Length)]));
+        if (houses.Count != 0 && Random.Range(0, 1.0f) > .9964f-GameManager.INSTANCE.Chaos/10) {
+            Person p=Instantiate(person, houses[Random.Range(0, houses.Count)].transform.position, Quaternion.Euler(0, 0, 0), transform).GetComponent<Person>();
+            while (!p.SetTarget(houses[Random.Range(0, houses.Count)]));
         }
 	}
+
+    public void RemoveHouse(House h) {
+        houses.Remove(h);
+        Debug.Log(houses.Count);
+    }
 }

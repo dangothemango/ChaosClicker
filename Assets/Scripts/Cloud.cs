@@ -31,8 +31,8 @@ public class Cloud : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if (target == null && (Input.GetKeyDown(KeyCode.L) || Random.Range(0,1.0f) <= GameManager.INSTANCE.Chaos/Mathf.Pow(19,age))) {
-            target = GameManager.INSTANCE.GetRandomPerson().transform;
-            
+            Person p = GameManager.INSTANCE.GetRandomPerson();
+            target = p==null? null : p.transform;
         }
         if (target != null) {
             if (Vector2.Distance(transform.position, target.position + new Vector3(.397004f, 1.521376f, 0)) < .1f) {
@@ -44,7 +44,7 @@ public class Cloud : MonoBehaviour {
             else {
                 transform.position = Vector2.MoveTowards(transform.position, target.position + new Vector3(.397004f, 1.521376f, 0), speed * Time.deltaTime * 5);
             }
-        } else if (direction != null) {
+        } else if (direction != Vector2.zero) {
             transform.position += (Vector3)(direction * Time.deltaTime * speed);
         }
 	}
