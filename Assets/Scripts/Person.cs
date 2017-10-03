@@ -147,6 +147,7 @@ public class Person : MonoBehaviour {
 
     public void onMissileHit()
     {
+        if (sentient) return;
         seeking = false;
         StartCoroutine(SusAndDie());
     }
@@ -159,6 +160,7 @@ public class Person : MonoBehaviour {
 
     public void OnLightningHit()
     {
+        if (sentient) return;
         isOnFire = true;
         //seeking = false;
         target = null;
