@@ -17,6 +17,7 @@ public class Person : MonoBehaviour {
     int direction = 1;
     Rigidbody2D rigidBody;
     bool sentient = false;
+    bool scaling = false;
 
     public SpriteRenderer Body;
     public SpriteRenderer Floater;
@@ -83,6 +84,7 @@ public class Person : MonoBehaviour {
     }
 
     IEnumerator ScaleUp(float scaleTime) {
+        scaling = true;
         Vector2 oScale = transform.localScale;
         float sT = 0;
         while (sT < scaleTime) {
@@ -91,9 +93,12 @@ public class Person : MonoBehaviour {
             yield return null;
         }
         seeking = true;
+        scaling = false;
     }
 
     IEnumerator ScaleDown(float scaleTime) {
+        if (sentient) yield break;
+        scaling = true;
         Vector2 oScale = transform.localScale;
         float sT = 0;
         while (sT < scaleTime) {
@@ -109,16 +114,19 @@ public class Person : MonoBehaviour {
     }
 
     public void OnHit() {
+        if (sentient) return;
         seeking = false;
         StartCoroutine(SusAndDie());
     }
 
     IEnumerator SusAndDie() {
+        if (sentient) yield break;
         Body.sprite = surprised;
         yield return ScaleDown(.5f);
     }
 
     IEnumerator LaunchAndDie(float t) {
+        if (sentient) yield break;
         float eT = 0;
         while (eT < t) {
             eT += Time.deltaTime;
@@ -129,6 +137,7 @@ public class Person : MonoBehaviour {
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
+        if (sentient) return;
         if (collision.gameObject.GetComponentInParent<Cloud>() != null) {
             Body.sprite = confused[Random.Range(0,confused.Length)];
         } else if (collision.gameObject.GetComponent<Explosion>() != null){
@@ -139,11 +148,13 @@ public class Person : MonoBehaviour {
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
+        if (sentient) return;
         direction *= -1;
         transform.localRotation = Quaternion.Euler(0, direction > 0 ? 180 : 0, 0);
     }
 
     public Person BecomeSentient() {
+        if (scaling) return null;
         seeking = false;
         target = null;
         sentient = true;
@@ -160,7 +171,7 @@ public class Person : MonoBehaviour {
     IEnumerator MoveToButton() {
         Debug.Log("Moving");
         while (Vector2.Distance(transform.position, GameManager.INSTANCE.chaosButton.transform.position) > .1f) {
-            Vector2.MoveTowards(transform.position, GameManager.INSTANCE.chaosButton.transform.position, speed * Time.deltaTime);
+            transform.position=Vector2.MoveTowards(transform.position, GameManager.INSTANCE.chaosButton.transform.position, speed * Time.deltaTime);
             yield return null;
         }
         Floater.gameObject.SetActive(false);
