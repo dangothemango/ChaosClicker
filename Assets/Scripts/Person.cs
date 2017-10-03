@@ -138,4 +138,8 @@ public class Person : MonoBehaviour {
         direction *= -1;
         transform.localRotation = Quaternion.Euler(0, direction > 0 ? 180 : 0, 0);
     }
+
+    public Person BecomeSentient() {
+        return this;
+    }
 }
