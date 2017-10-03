@@ -145,18 +145,20 @@ public class Person : MonoBehaviour {
 
     public Person BecomeSentient() {
         seeking = false;
+        target = null;
         sentient = true;
         Body.sortingLayerName = "Sentient";
-        transform.position = GameManager.INSTANCE.chaosButton.transform.position;
-        StartCoroutine(MoveToButton());
+        transform.localRotation = Quaternion.Euler(0,180,0);
         Floater.gameObject.SetActive(true);
         Floater.sortingLayerName = "Sentient";
         Floater.sprite = questionMark;
         Body.sprite = confused[Random.Range(0, confused.Length)];
+        StartCoroutine(MoveToButton());
         return this;
     }
 
     IEnumerator MoveToButton() {
+        Debug.Log("Moving");
         while (Vector2.Distance(transform.position, GameManager.INSTANCE.chaosButton.transform.position) > .1f) {
             Vector2.MoveTowards(transform.position, GameManager.INSTANCE.chaosButton.transform.position, speed * Time.deltaTime);
             yield return null;

@@ -101,6 +101,7 @@ public class GameManager : MonoBehaviour {
             Debug.Log("Sentience");
             virus = GetRandomPerson().BecomeSentient();
             people.Remove(virus);
-        } 
+        }
+        Debug.Log(Chaos);
     }
 }
