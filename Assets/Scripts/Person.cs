@@ -19,10 +19,13 @@ public class Person : MonoBehaviour {
     bool sentient = false;
 
     public SpriteRenderer Body;
+    public SpriteRenderer Floater;
 
     [Header("Sprites")]
     public Sprite surprised;
     public Sprite[] confused;
+    public Sprite questionMark;
+    public Sprite exclamationMark;
 
 	// Use this for initialization
 	void Start () {
@@ -145,6 +148,19 @@ public class Person : MonoBehaviour {
         sentient = true;
         Body.sortingLayerName = "Sentient";
         transform.position = GameManager.INSTANCE.chaosButton.transform.position;
+        StartCoroutine(MoveToButton());
+        Floater.gameObject.SetActive(true);
+        Floater.sortingLayerName = "Sentient";
+        Floater.sprite = questionMark;
+        Body.sprite = confused[Random.Range(0, confused.Length)];
         return this;
+    }
+
+    IEnumerator MoveToButton() {
+        while (Vector2.Distance(transform.position, GameManager.INSTANCE.chaosButton.transform.position) > .1f) {
+            Vector2.MoveTowards(transform.position, GameManager.INSTANCE.chaosButton.transform.position, speed * Time.deltaTime);
+            yield return null;
+        }
+        Floater.gameObject.SetActive(false);
     }
 }

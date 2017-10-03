@@ -95,9 +95,12 @@ public class GameManager : MonoBehaviour {
     public void IncChaos() {
         //TODO change this to 1f
         if (Chaos < .05f) {
-            chaos += .01f;
-        } else {
+            Chaos += .01f;
+        }
+        else if (virus == null)
+            Debug.Log("Sentience");
             virus = GetRandomPerson().BecomeSentient();
+            people.Remove(virus);
         }
         
     }
