@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour {
 
     public void IncChaos() {
         //TODO change this to 1f
-        if (Chaos < .05f) {
+        if (Chaos < 1f) {
             Chaos += .01f;
         }
         else if (virus == null) {
