@@ -1244,11 +1244,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: b0af199da75177941a2aa393da89d37e, type: 3}
   - {fileID: 21300000, guid: efddc198b3bfe6a409b916b62ee94766, type: 3}
   - {fileID: 21300000, guid: f5ff808e1cda27e4fbbe0f89da83a43e, type: 3}
-  x_move_speed: 100
-  y_move_speed: 100
+  x_default_move_speed: 5
+  y_default_move_speed: 5
+  change_move_speed: 1
   wiggle_bounds: 20
-  wiggle_delta: 30
-  wiggle_increase_rate: 100
+  wiggle_delta: 1
+  wiggle_increase_rate: 1
   local_camera: {fileID: 1500151845}
 --- !u!4 &1933936756
 Transform:
@@ -1442,6 +1443,11 @@ Prefab:
       propertyPath: door_shut
       value: 
       objectReference: {fileID: 8300000, guid: 74e03934c21a7d642b821693d8eebeaa, type: 3}
+    - target: {fileID: 114611158310734162, guid: 536b014678f730a45b531f3c84172e5d,
+        type: 2}
+      propertyPath: car_horn
+      value: 
+      objectReference: {fileID: 8300000, guid: 62effdb3c8ee77040af899057cd2b36f, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 536b014678f730a45b531f3c84172e5d, type: 2}
   m_IsPrefabParent: 0
@@ -1562,6 +1568,17 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1933936755}
         m_MethodName: RollToSwapSprite
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1933936755}
+        m_MethodName: ChangeButtonSpeed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
