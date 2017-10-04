@@ -35,7 +35,7 @@ public class Person : MonoBehaviour {
     public Sprite exclamationMark;
     public Sprite fire;
 	public Sprite[] bubbles;
-	public Sprite ash;
+	public GameObject ash;
 
 	private AudioSource source;   
 
@@ -89,10 +89,7 @@ public class Person : MonoBehaviour {
                 //ScaleDown(.5f);
                 seeking = false;
 
-				//Spawn ash pile
-				//Body.sprite = ash;
-				//this.transform.localRotation = Vector3.zero;
-				//this.transform.Translate( new Vector3(0, -fire.rect.height, 0));
+                
 
                 Color c = Body.color;
                 c.a -= Time.deltaTime;
@@ -100,7 +97,9 @@ public class Person : MonoBehaviour {
                 print(c.a);
                 if (c.a <= 0)
                 {
-					Destroy(this.gameObject);
+                    //Spawn ash pile
+                    Instantiate(ash, transform.position, transform.localRotation, transform.parent);
+                    Destroy(this.gameObject);
                 }
             }
         }
