@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager INSTANCE;
 
-    public GameObject camera;
+    public GameObject cam;
     public GameObject chaosTarget;
     public Button chaosButton;
     public GameObject thunderCloud;
@@ -163,7 +163,7 @@ public class GameManager : MonoBehaviour {
             float prev = t;
             t += Time.deltaTime;
             float cur = t;
-            camera.transform.position += transform.forward * (Mathf.Abs(Mathf.Sin(cur)) - Mathf.Abs(Mathf.Sin(prev)))*5;
+            cam.transform.position += transform.forward * (Mathf.Abs(Mathf.Sin(cur)) - Mathf.Abs(Mathf.Sin(prev)))*5;
             yield return null;
         }
     }
@@ -174,7 +174,7 @@ public class GameManager : MonoBehaviour {
             float prev = t;
             t += Time.deltaTime;
             float cur = t;
-            camera.transform.position += transform.forward * (Mathf.Sin(cur) - Mathf.Sin(prev)) * 5;
+            cam.transform.position += transform.forward * (Mathf.Sin(cur) - Mathf.Sin(prev)) * 5;
             yield return null;
         }
     }
