@@ -224,6 +224,7 @@ public class Person : MonoBehaviour {
         target = null;
         sentient = true;
         Body.sortingLayerName = "Sentient";
+        transform.localScale *= 1.5f;
         transform.localRotation = Quaternion.Euler(0,180,0);
         Floater.gameObject.SetActive(true);
         Floater.sortingLayerName = "Sentient";
@@ -235,10 +236,12 @@ public class Person : MonoBehaviour {
 
     IEnumerator MoveToButton() {
         Debug.Log("Moving");
-        while (Vector2.Distance(transform.position, GameManager.INSTANCE.chaosButton.transform.position) > .1f) {
-            transform.position=Vector2.MoveTowards(transform.position, GameManager.INSTANCE.chaosButton.transform.position, speed * Time.deltaTime);
+        while (Vector2.Distance(transform.position, GameManager.INSTANCE.chaosTarget.transform.position) > .1f) {
+            transform.position=Vector2.MoveTowards(transform.position, GameManager.INSTANCE.chaosTarget.transform.position, 2*speed * Time.deltaTime);
             yield return null;
         }
         Floater.gameObject.SetActive(false);
+        GameManager.INSTANCE.ScaleVirusUI();
+        Destroy(this.gameObject);
     }
 }

@@ -1,16 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
     public static GameManager INSTANCE;
 
-    public GameObject chaosButton;
+    public GameObject chaosTarget;
+    public Button chaosButton;
     public GameObject thunderCloud;
     public Transform[] missleSpawns;
 
-    public Person virus;
+    Person virus;
+
+    public GameObject virusUI;
 
     public Person Virus {
         get {
@@ -22,6 +26,23 @@ public class GameManager : MonoBehaviour {
     List<Cloud> clouds;
     List<Car> cars;
     float chaos = 0;
+    int superChaos = 0;
+
+    public int SuperChaos {
+        get {
+            return superChaos;
+        }
+        set {
+            superChaos = value;
+            if (superChaos == 3) {
+                //TODO start a zooming in and out routine
+            } else if (superChaos == 5) {
+                //TODO start routine that zooms out past boundries
+            } else if (superChaos == 10) {
+                //TODO start spinning the camera
+            }
+        }
+    }
 
     public float Chaos {
         get {
@@ -100,11 +121,38 @@ public class GameManager : MonoBehaviour {
         if (Chaos < 1f) {
             Chaos += .01f;
         }
-        else if (virus == null) {
+        else if (virus == null && virusUI.transform.localScale==Vector3.zero) {
             Debug.Log("Sentience");
             virus = GetRandomPerson().BecomeSentient();
             people.Remove(virus);
         }
         Debug.Log(Chaos);
+    }
+
+    public void ScaleVirusUI() {
+        StartCoroutine(ScaleVirusUi());
+    }
+
+    IEnumerator ScaleVirusUi() {
+        float t = 0;
+        while (t <= 3f) {
+            t += Time.deltaTime;
+            virusUI.transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one, t / 3f);
+            yield return null;
+        }
+        StartCoroutine(GeneratePlayerChaos());
+    }
+
+    IEnumerator GeneratePlayerChaos() {
+        float t = 0;
+        while (t < 1f) {
+            t += Time.deltaTime;
+            virusUI.transform.localPosition = new Vector3(0, Mathf.Sin(t * Mathf.PI)*30,0);
+            yield return null;
+        }
+        chaosButton.onClick.Invoke();
+        SuperChaos++;
+        yield return new WaitForSeconds(2f);
+        StartCoroutine(GeneratePlayerChaos());
     }
 }

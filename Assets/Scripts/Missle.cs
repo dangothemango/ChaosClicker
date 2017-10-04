@@ -34,6 +34,7 @@ public class Missle : MonoBehaviour {
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
+        if (target == null) return;
         if (collision.gameObject == target.gameObject) {
             Person p = target.GetComponent<Person>();
             if (p != null) {
