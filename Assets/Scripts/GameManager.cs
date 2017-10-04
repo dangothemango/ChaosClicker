@@ -38,10 +38,12 @@ public class GameManager : MonoBehaviour {
             superChaos = value;
             if (superChaos == 1) {
                 StartCoroutine(ZoomInAndBackToZero());
-            } else if (superChaos == 3) {
+            }
+            else if (superChaos == 3) {
                 StartCoroutine(ZoomInAndPastZero());
-            } else if (superChaos == 5) {
-                StartCoroutine(RotateCam());
+            }
+            else if (superChaos == 5) {
+                StartCoroutine(RotateCamAroundZ());
             }
         }
     }
@@ -189,10 +191,10 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    IEnumerator RotateCam() {
+    IEnumerator RotateCamAroundZ() {
         int dir = Random.Range(0,1f)>.5f? 1: -1;
         while (true) {
-            cam.transform.RotateAround(Vector3.zero, Vector3.up, Time.deltaTime * 5f);
+            cam.transform.RotateAround(Vector3.zero, Vector3.up, Time.deltaTime * Random.Range(0,20f)*dir);
             cam.transform.LookAt(Vector3.zero);
             if (Random.Range(0, 1.0f) > .994) {
                 dir *= -1;
@@ -200,4 +202,5 @@ public class GameManager : MonoBehaviour {
             yield return null;
         }
     }
+    
 }

@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 114456589199126898}
   - component: {fileID: 50587353009177520}
   - component: {fileID: 61277890830205120}
+  - component: {fileID: 114772975504829676}
   m_Layer: 8
   m_Name: Person
   m_TagString: Untagged
@@ -174,6 +175,18 @@ MonoBehaviour:
   questionMark: {fileID: 21300000, guid: 98268a4feb34cf948ac6ae72302abd02, type: 3}
   exclamationMark: {fileID: 21300000, guid: 17fcde0a206cf45418148614a371ae3a, type: 3}
   fire: {fileID: 21300000, guid: 01144421237d07d44a4688c68ff93418, type: 3}
+--- !u!114 &114772975504829676
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1917280621919270}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfe8e6346530afc4d8d7a0b23670ffeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  threshold: 2
 --- !u!212 &212273707440218748
 SpriteRenderer:
   m_ObjectHideFlags: 1

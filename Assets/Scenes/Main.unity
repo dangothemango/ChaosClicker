@@ -456,6 +456,11 @@ Prefab:
       propertyPath: m_Name
       value: Middle Road
       objectReference: {fileID: 0}
+    - target: {fileID: 114842141652311864, guid: a62d764f1f022804f82970768e88767e,
+        type: 2}
+      propertyPath: threshold
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a62d764f1f022804f82970768e88767e, type: 2}
   m_IsPrefabParent: 0
@@ -1132,6 +1137,7 @@ GameObject:
   - component: {fileID: 1864482325}
   - component: {fileID: 1864482327}
   - component: {fileID: 1864482328}
+  - component: {fileID: 1864482329}
   m_Layer: 0
   m_Name: World
   m_TagString: Untagged
@@ -1265,6 +1271,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.0256596, y: 16}
   m_EdgeRadius: 0
+--- !u!114 &1864482329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1864482324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfe8e6346530afc4d8d7a0b23670ffeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  threshold: 12
 --- !u!1001 &1872797729
 Prefab:
   m_ObjectHideFlags: 0
@@ -1519,6 +1537,11 @@ Prefab:
     - target: {fileID: 1629490515850600, guid: a62d764f1f022804f82970768e88767e, type: 2}
       propertyPath: m_Name
       value: Bottom Row
+      objectReference: {fileID: 0}
+    - target: {fileID: 114842141652311864, guid: a62d764f1f022804f82970768e88767e,
+        type: 2}
+      propertyPath: threshold
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a62d764f1f022804f82970768e88767e, type: 2}

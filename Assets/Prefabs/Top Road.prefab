@@ -188,6 +188,7 @@ GameObject:
   - component: {fileID: 4099531802096882}
   - component: {fileID: 114604353507761606}
   - component: {fileID: 61168937819509422}
+  - component: {fileID: 114842141652311864}
   m_Layer: 0
   m_Name: Top Road
   m_TagString: Untagged
@@ -980,6 +981,18 @@ MonoBehaviour:
   missle: {fileID: 1012234309905382, guid: 7e22c8d19d8491842abc4b8179083905, type: 2}
   leftSpawn: {fileID: 1249380770141304}
   rightSpawn: {fileID: 1972512725778040}
+--- !u!114 &114842141652311864
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1629490515850600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfe8e6346530afc4d8d7a0b23670ffeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  threshold: 13
 --- !u!212 &212094127542694330
 SpriteRenderer:
   m_ObjectHideFlags: 1
