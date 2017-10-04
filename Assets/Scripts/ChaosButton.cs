@@ -12,7 +12,7 @@ public class ChaosButton : MonoBehaviour {
 
 	public float wiggle_bounds = 90f;
 	public float wiggle_delta = 10f;
-	public bool clockwise = true;
+	bool clockwise = true;
 
 	private Image button_sprite;
 	private Vector3 button_initial;
@@ -67,13 +67,20 @@ public class ChaosButton : MonoBehaviour {
 
 	//Wiggle stuff nicely
 	public void WiggleButton(){
-		if ( (button.transform.rotation.z * 100 ) <= wiggle_bounds) {
+
+		//Perform the rotation
+		if (clockwise) {
 			button.transform.Rotate (0, 0, wiggle_delta * Time.deltaTime);
-			print ("main");
 		} else {
-			wiggle_bounds = wiggle_bounds * -1;
 			button.transform.Rotate (0, 0, -1 * wiggle_delta * Time.deltaTime);
-			print ("else: " + button.transform.rotation.z);
+		}
+			
+		//Reset direction on bounds
+		if ( (button.transform.rotation.z * 100 ) >= wiggle_bounds) {
+			clockwise = !clockwise;
+		} 
+		else if ((button.transform.rotation.z * 100) <= wiggle_bounds * -1){
+			clockwise = !clockwise;
 		}
 
 

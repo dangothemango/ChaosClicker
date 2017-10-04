@@ -1135,8 +1135,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: b0af199da75177941a2aa393da89d37e, type: 3}
   - {fileID: 21300000, guid: efddc198b3bfe6a409b916b62ee94766, type: 3}
   - {fileID: 21300000, guid: f5ff808e1cda27e4fbbe0f89da83a43e, type: 3}
-  wiggle_bounds: 30
-  wiggle_delta: 10
+  wiggle_bounds: 20
+  wiggle_delta: 30
+  clockwise: 1
 --- !u!4 &1933936756
 Transform:
   m_ObjectHideFlags: 0
