@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
     public static GameManager INSTANCE;
 
-    public GameObject chaosButton;
+    public GameObject chaosTarget;
+    public Button chaosButton;
     public GameObject thunderCloud;
     public Transform[] missleSpawns;
 
@@ -145,9 +147,10 @@ public class GameManager : MonoBehaviour {
         float t = 0;
         while (t < 1f) {
             t += Time.deltaTime;
-            virus.transform.localPosition = new Vector3(0, Mathf.Sin(t * Mathf.PI),0);
+            virusUI.transform.localPosition = new Vector3(0, Mathf.Sin(t * Mathf.PI)*30,0);
             yield return null;
         }
+        chaosButton.onClick.Invoke();
         SuperChaos++;
         yield return new WaitForSeconds(2f);
         StartCoroutine(GeneratePlayerChaos());

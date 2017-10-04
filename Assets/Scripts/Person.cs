@@ -236,8 +236,8 @@ public class Person : MonoBehaviour {
 
     IEnumerator MoveToButton() {
         Debug.Log("Moving");
-        while (Vector2.Distance(transform.position, GameManager.INSTANCE.chaosButton.transform.position) > .1f) {
-            transform.position=Vector2.MoveTowards(transform.position, GameManager.INSTANCE.chaosButton.transform.position, 2*speed * Time.deltaTime);
+        while (Vector2.Distance(transform.position, GameManager.INSTANCE.chaosTarget.transform.position) > .1f) {
+            transform.position=Vector2.MoveTowards(transform.position, GameManager.INSTANCE.chaosTarget.transform.position, 2*speed * Time.deltaTime);
             yield return null;
         }
         Floater.gameObject.SetActive(false);
