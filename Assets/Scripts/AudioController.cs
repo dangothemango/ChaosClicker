@@ -7,6 +7,7 @@ public class AudioController : MonoBehaviour {
 	public AudioClip thunder_clap;
 	public AudioClip missle_strike;
 	public AudioClip door_shut;
+	public AudioClip car_horn;
 	public float volume = 1f;
 
 	AudioSource source;
@@ -31,6 +32,10 @@ public class AudioController : MonoBehaviour {
 
 	public void playDoorClose(){
 		source.PlayOneShot (door_shut, volume);
+	}
+
+	public void playCarHorn(){
+		source.PlayOneShot (car_horn, volume);
 	}
 
 
