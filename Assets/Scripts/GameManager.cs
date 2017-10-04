@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager INSTANCE;
 
+    public GameObject camera;
     public GameObject chaosTarget;
     public Button chaosButton;
     public GameObject thunderCloud;
@@ -34,11 +35,11 @@ public class GameManager : MonoBehaviour {
         }
         set {
             superChaos = value;
-            if (superChaos == 3) {
-                //TODO start a zooming in and out routine
+            if (superChaos == 1) {
+                StartCoroutine(ZoomInAndBackToZero());
+            } else if (superChaos == 3) {
+                StartCoroutine(ZoomInAndPastZero());
             } else if (superChaos == 5) {
-                //TODO start routine that zooms out past boundries
-            } else if (superChaos == 10) {
                 //TODO start spinning the camera
             }
         }
@@ -152,7 +153,29 @@ public class GameManager : MonoBehaviour {
         }
         chaosButton.onClick.Invoke();
         SuperChaos++;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(10f);
         StartCoroutine(GeneratePlayerChaos());
+    }
+
+    IEnumerator ZoomInAndBackToZero() {
+        float t = 0;
+        while (SuperChaos != 3) {
+            float prev = t;
+            t += Time.deltaTime;
+            float cur = t;
+            camera.transform.position += transform.forward * (Mathf.Abs(Mathf.Sin(cur)) - Mathf.Abs(Mathf.Sin(prev)))*5;
+            yield return null;
+        }
+    }
+
+    IEnumerator ZoomInAndPastZero() {
+        float t = 0;
+        while (SuperChaos != 5) {
+            float prev = t;
+            t += Time.deltaTime;
+            float cur = t;
+            camera.transform.position += transform.forward * (Mathf.Sin(cur) - Mathf.Sin(prev)) * 5;
+            yield return null;
+        }
     }
 }

@@ -344,7 +344,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4099531802096882, guid: a62d764f1f022804f82970768e88767e, type: 2}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a62d764f1f022804f82970768e88767e, type: 2}
@@ -442,7 +442,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4099531802096882, guid: a62d764f1f022804f82970768e88767e, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4099531802096882, guid: a62d764f1f022804f82970768e88767e, type: 2}
       propertyPath: m_LocalScale.x
@@ -484,7 +484,7 @@ RectTransform:
   m_GameObject: {fileID: 562697885}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 749882405}
   m_Father: {fileID: 2034513655}
@@ -750,7 +750,7 @@ Transform:
   m_LocalScale: {x: 1.6634108, y: 1.5546427, z: 1}
   m_Children: []
   m_Father: {fileID: 1864482326}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1046952175
 GameObject:
@@ -1035,7 +1035,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 1
+  orthographic: 0
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
@@ -1059,7 +1059,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1500151841}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -8.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1188,13 +1188,13 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1864482324}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.013, y: -0.057, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.6011744, y: 0.6432346, z: 1}
   m_Children:
+  - {fileID: 966519593}
   - {fileID: 897362668}
   - {fileID: 797235539}
   - {fileID: 615769596}
-  - {fileID: 966519593}
   - {fileID: 2010316828}
   - {fileID: 1938345390}
   - {fileID: 280809959}
@@ -1221,7 +1221,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3584134bf61cd914b905950711d0c482, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chaosButton: {fileID: 871074605}
+  camera: {fileID: 1500151841}
+  chaosTarget: {fileID: 871074605}
+  chaosButton: {fileID: 2034513656}
   thunderCloud: {fileID: 1443468704474874, guid: cdf40fe7b7b3fd74d8f0171fa22fe3fe,
     type: 2}
   missleSpawns:
@@ -1237,7 +1239,7 @@ MonoBehaviour:
   - {fileID: 2107768356}
   - {fileID: 1815729267}
   - {fileID: 1470345214}
-  virus: {fileID: 0}
+  virusUI: {fileID: 562697885}
 --- !u!61 &1864482328
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1503,7 +1505,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4099531802096882, guid: a62d764f1f022804f82970768e88767e, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4099531802096882, guid: a62d764f1f022804f82970768e88767e, type: 2}
       propertyPath: m_LocalScale.x
