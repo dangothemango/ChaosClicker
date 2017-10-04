@@ -10,6 +10,8 @@ public class Person : MonoBehaviour {
     public float scaleTime = 1f;
     public float launchSpeed = 10f;
 
+	public GameObject interactTooltip;
+
     House target;
     bool seeking = false;
     float oRot;
@@ -71,6 +73,8 @@ public class Person : MonoBehaviour {
                 transform.localRotation = Quaternion.Euler(rot);
             }
         }
+
+		SpawnBubbles ();
 
         if (isOnFire)
         {
@@ -250,4 +254,11 @@ public class Person : MonoBehaviour {
         GameManager.INSTANCE.ScaleVirusUI();
         Destroy(this.gameObject);
     }
+
+	private void SpawnBubbles(){
+		DialogueParser dialogue = GameObject.Find ("DialogueParser").GetComponent<DialogueParser>();
+		DialogueParser.Dialogue options = dialogue.Get_Dialogue_Options();
+
+
+	}
 }
