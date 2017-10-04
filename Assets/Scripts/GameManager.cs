@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour {
             SpawnCloud();
         }
         if (Random.Range(0, 1.0f) > .99f) {
-            GetRandomPerson().SpawnBubbles("neutral");
+            GetRandomPerson().SpawnBubbles();
         }
     }
 
@@ -131,6 +131,7 @@ public class GameManager : MonoBehaviour {
         else if (virus == null && virusUI.transform.localScale==Vector3.zero) {
             Debug.Log("Sentience");
             virus = GetRandomPerson().BecomeSentient();
+			virus.state = "sentient";
             people.Remove(virus);
         }
         Debug.Log(Chaos);
