@@ -261,8 +261,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogFile: {fileID: 4900000, guid: f921a950abb2b984baa7a706ae043342, type: 3}
-  interactTooltip: {fileID: 1252337989423842, guid: 205e3f7dd7167434b828e4c5728d862b,
-    type: 2}
+  interactTooltip: {fileID: 1687700421340550}
   UI: {fileID: 0}
 --- !u!114 &114987800468879816
 MonoBehaviour:
@@ -281,6 +280,7 @@ MonoBehaviour:
   scaleTime: 1
   launchSpeed: 4
   interactTooltip: {fileID: 0}
+  scaling: 0
   Body: {fileID: 212652950857356598}
   Floater: {fileID: 212483226921068716}
   surprised: {fileID: 21300000, guid: a58fa99278c742a439d3deb8b3b9ba99, type: 3}
