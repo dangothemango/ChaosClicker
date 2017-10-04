@@ -262,22 +262,44 @@ public class Person : MonoBehaviour {
         }
 
 		DialogueParser dialogue = GetComponent<DialogueParser>();
-        //		DialogueParser.Dialogue options = dialogue.Get_Dialogue_Options();
-        //	transform.localScale *= 1.5f;
-        //	transform.localRotation = Quaternion.Euler(0,180,0);
         dialogue.SpawnBubble();
 		Floater.gameObject.SetActive(true);
 		Floater.sprite = bubbles[Random.Range(0, bubbles.Length)];
 
 		//Set the text component to some random neutral statement
 		TextMesh editor = Floater.GetComponentInChildren<TextMesh> ();
+		editor.fontSize = 20;
 
 		int val = (int)Random.Range (0, dialogue.Get_Dialogue_Options (state).Length);
 		editor.text = dialogue.Get_Dialogue_Options(state)[val];
 
-        //TODO: Resize shapes to be correct size
-        //TODO: Get text to appear
-        //TODO: Maybe don't spawn this for every person, only have three on screen at a time or something
+		Font arial = editor.font;
+		CharacterInfo characterInfo = new CharacterInfo ();
+
+		char[] tmpText = editor.text.ToCharArray();
+		float counter = 0f;
+		int index = -1;
+		int newlineIndex = -1;
+
+		foreach (char c in tmpText){
+			arial.GetCharacterInfo(c, out characterInfo, editor.fontSize); 
+			counter += characterInfo.advance;
+			if (counter >= 4f) {
+				//todo: make a new array with old text + '\n' + remaining text
+				newlineIndex = editor.text.IndexOf(c); //won't work always
+				break;
+			}
+		}
+
+		print ("Text size: " + counter);
+		print ("NewIndex: " + newlineIndex);	//Not changing from 0
+
+		string tmp = editor.text;
+		if (newlineIndex != -1) {
+			tmp = tmp.Insert (newlineIndex, "\n");
+			editor.text = tmp;
+		}
+		//Todo add new lines to text
 
         //Reach: Be aware of events that have happened nearby (or guess based on chaos), and choose a dialogue option
         //Reach: Add another portion to the json file saying which dialogue has what emotions
