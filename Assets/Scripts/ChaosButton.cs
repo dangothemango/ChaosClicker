@@ -10,8 +10,14 @@ public class ChaosButton : MonoBehaviour {
 	public Sprite[] med_chaos_buttons;
 	public Sprite[] high_chaos_buttons;
 
-	public float x_move_speed = 10f;		//How fast does the button move
-	public float y_move_speed = 10f;		//How fast does the button move
+	public float x_default_move_speed = 10f;		//How fast does the button move
+	public float y_default_move_speed = 10f;		//How fast does the button move
+	public float change_move_speed = 20f;			//How much to increase the speed by each click at high chaos
+
+	float x_max_move_speed = 7f;			//How fast *can* the button move
+	float x_min_move_speed = 5f;
+	float y_max_move_speed = 7f;			//How fast *can* the button move
+	float y_min_move_speed = 5f;
 
 	public float wiggle_bounds = 30f;	//Maximum rotation allowed
 	public float wiggle_delta = 10f;	//Initial Speed to rotate
@@ -54,32 +60,35 @@ public class ChaosButton : MonoBehaviour {
 
 	//Moves the button to a new location
 	public void RepositionButton(){
-		//If Sentient, reset to initial position
-
-		//High Chaos: Teleport the button around the screen??
-		if (GameManager.INSTANCE.Chaos >= .7) {
-			ResetButton();
+		//Max Chaos: Reset the button
+		if (GameManager.INSTANCE.Chaos >= 1) {
+			ResetButton ();
 			return;
 		} 
 
+		//At medium-high Chaos, changes the speed of the button on click.
+
 		//Medium Chaos: Move the button around the screen faster & move left & right
-		if (GameManager.INSTANCE.Chaos >= .4) {
+		if (GameManager.INSTANCE.Chaos >= .3) {
 			// Check if moving in the current direction will render the button offscreen
-			if (button.transform.position.x + x_move_speed > Screen.width || button.transform.position.x + x_move_speed <= 0)
-				x_move_speed *= -1.5f;
+			if (button.transform.position.x + button.image.rectTransform.rect.width/2 > Screen.width || 
+				button.transform.position.x - button.image.rectTransform.rect.width <= 0) {
+				x_default_move_speed *= -1f;	//<- Causes things to go wrong.
+			}
 
 			//Perform the translation
-			button.transform.Translate( new Vector3(x_move_speed, 0, 0) * Time.deltaTime);
+			button.transform.Translate( new Vector3(x_default_move_speed, 0, 0));
 		}
 
 		// Medium-Low Chaos: Move the button up & down on side of screen
 		if (GameManager.INSTANCE.Chaos >= .2) {
 			// Check if moving in the current direction will render the button offscreen
-			if (button.transform.position.y + y_move_speed > Screen.height || button.transform.position.y + y_move_speed <= 0)
-				y_move_speed *= -1;
+			if (button.transform.position.y + button.image.rectTransform.rect.height/2 > Screen.height || 
+				button.transform.position.y -  button.image.rectTransform.rect.height  <= 0)
+				y_default_move_speed *= -1;
 
 			//Perform the translation
-			button.transform.Translate( new Vector3(0, y_move_speed, 0) * Time.deltaTime);
+			button.transform.Translate( new Vector3(0, y_default_move_speed, 0));
 		}
 
 		//Don't move at lower chaos.
@@ -88,13 +97,17 @@ public class ChaosButton : MonoBehaviour {
 	//Wiggle stuff nicely
 	public void WiggleButton(){
 
+		//Should we not wiggle at max speed?
+		if (GameManager.INSTANCE.Chaos >= 1)
+			return;
+
 		float chaotice_wiggle_delta = wiggle_delta + (GameManager.INSTANCE.Chaos * 30);
 
 		//Perform the rotation
 		if (clockwise) {
-			button.transform.Rotate (0, 0, chaotice_wiggle_delta * Time.deltaTime);
+			button.transform.Rotate (0, 0, chaotice_wiggle_delta);
 		} else {
-			button.transform.Rotate (0, 0, -1 * chaotice_wiggle_delta * Time.deltaTime);
+			button.transform.Rotate (0, 0, -1 * chaotice_wiggle_delta);
 		}
 			
 		//Reset direction on bounds
@@ -104,6 +117,25 @@ public class ChaosButton : MonoBehaviour {
 		else if ((button.transform.rotation.z * 100) <= wiggle_bounds * -1){
 			clockwise = !clockwise;
 		}
+	}
+
+	//On higher chaos, change the speed of the button on click, and increase the lowest speed at each click
+	public void ChangeButtonSpeed(){
+
+		if (GameManager.INSTANCE.Chaos < .7)
+			return;
+
+		//Re-roll the current speed
+		float new_x_speed = Random.Range (x_min_move_speed, x_max_move_speed);
+		float new_y_speed = Random.Range (y_min_move_speed, y_max_move_speed);
+
+		//Ensure the direction doesn't change
+		x_default_move_speed = (x_default_move_speed > 0 ) ? new_x_speed : -new_x_speed;
+		y_default_move_speed = (y_default_move_speed > 0 ) ? new_y_speed : -new_y_speed;
+
+		//Change the minimum speed to be faster
+		x_max_move_speed += change_move_speed/2;
+		y_max_move_speed += change_move_speed/2;
 	}
 
 	//Resets button to its original position
