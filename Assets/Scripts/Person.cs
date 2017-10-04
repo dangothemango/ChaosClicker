@@ -31,6 +31,7 @@ public class Person : MonoBehaviour {
     public Sprite questionMark;
     public Sprite exclamationMark;
     public Sprite fire;
+	public Sprite ash;
 
 	private AudioSource source;   
 
@@ -84,14 +85,18 @@ public class Person : MonoBehaviour {
                 //ScaleDown(.5f);
                 seeking = false;
 
+				//Spawn ash pile
+				//Body.sprite = ash;
+				//this.transform.localRotation = Vector3.zero;
+				//this.transform.Translate( new Vector3(0, -fire.rect.height, 0));
+
                 Color c = Body.color;
                 c.a -= Time.deltaTime;
                 Body.color = c;
                 print(c.a);
                 if (c.a <= 0)
                 {
-                    print("destroyed?");
-                    Destroy(this.gameObject);
+					Destroy(this.gameObject);
                 }
             }
         }
