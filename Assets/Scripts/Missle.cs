@@ -5,6 +5,7 @@ using UnityEngine;
 public class Missle : MonoBehaviour {
 
     public float speed;
+    public GameObject explosion;
 
     Transform target;
 
@@ -18,6 +19,8 @@ public class Missle : MonoBehaviour {
 		if (target != null) {
             transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
             transform.up = target.position - transform.position;
+        } else {
+            target = GameManager.INSTANCE.GetRandomPerson().transform;
         }
 	}
 
@@ -35,12 +38,12 @@ public class Missle : MonoBehaviour {
             Person p = target.GetComponent<Person>();
             if (p != null) {
                 p.OnHit();
-                //TODO: Explode on person
-            } else {
+                Instantiate(explosion, target.position, new Quaternion(), GameManager.INSTANCE.gameObject.transform);
+            }
+            else {
                 House h = target.GetComponent<House>();
                 h.OnHit();
             }
-            
             Destroy(this.gameObject);
         }
     }

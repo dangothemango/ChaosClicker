@@ -9,6 +9,14 @@ public class GameManager : MonoBehaviour {
     public GameObject thunderCloud;
     public Transform[] missleSpawns;
 
+    Person virus;
+
+    public Person Virus {
+        get {
+            return virus;
+        }
+    }
+
     List<Person> people;
     List<Cloud> clouds;
     List<Car> cars;
@@ -84,6 +92,11 @@ public class GameManager : MonoBehaviour {
     }
 
     public void IncChaos() {
-        chaos += .01f;
+        if (Chaos < 1) {
+            chaos += .01f;
+        } else {
+            virus = GetRandomPerson().BecomeSentient();
+        }
+        
     }
 }

@@ -31,7 +31,7 @@ public class Road : MonoBehaviour {
             }
         }
 
-        if (Random.Range(0, 1.0f) > .9964f-Mathf.Sin(Mathf.Max(GameManager.INSTANCE.Chaos*Mathf.PI*3,Mathf.PI))) {
+        if (Random.Range(0, 1.0f) > .9964f-GameManager.INSTANCE.Chaos/20) {
             Instantiate(car, (Random.Range(0, 1.0f) > .5f ? leftSpawn : rightSpawn).transform.position,Quaternion.Euler(0,0,0),transform);
         }
         if (Random.Range(0, 1.0f) > .9964f-GameManager.INSTANCE.Chaos/10) {
