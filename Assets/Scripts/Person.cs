@@ -172,8 +172,6 @@ public class Person : MonoBehaviour {
     private bool updateFire()
     {
         fireTimer += Time.deltaTime;
-        print("fireTimer: " + fireTimer);
-
         return fireTimer < 5f;
     }
 

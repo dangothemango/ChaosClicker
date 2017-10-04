@@ -1122,12 +1122,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 212aaf329d383b44899b26a7e6ff082e, type: 3}
   - {fileID: 21300000, guid: a3ca4c9327837b844a81b6f70918447d, type: 3}
   - {fileID: 21300000, guid: 5b9bd580e705dea4097fcfe45e31e715, type: 3}
-  - {fileID: 21300000, guid: 6d941cea013a3e74baa8f02bd73cdccb, type: 3}
+  - {fileID: 21300000, guid: da273e35d0e92e44888371a7923946ca, type: 3}
   med_chaos_buttons:
   - {fileID: 21300000, guid: 543202bb10974234e84b0d754feec188, type: 3}
   - {fileID: 21300000, guid: 924f1eecc36f495489234d133cf6afd5, type: 3}
   - {fileID: 21300000, guid: 5b9bd580e705dea4097fcfe45e31e715, type: 3}
-  - {fileID: 21300000, guid: da273e35d0e92e44888371a7923946ca, type: 3}
+  - {fileID: 21300000, guid: 6d941cea013a3e74baa8f02bd73cdccb, type: 3}
   - {fileID: 21300000, guid: 956318b6878f8084280ceb22ec63626a, type: 3}
   high_chaos_buttons:
   - {fileID: 21300000, guid: e568374017c9cdb41837804adceae160, type: 3}
@@ -1135,9 +1135,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: b0af199da75177941a2aa393da89d37e, type: 3}
   - {fileID: 21300000, guid: efddc198b3bfe6a409b916b62ee94766, type: 3}
   - {fileID: 21300000, guid: f5ff808e1cda27e4fbbe0f89da83a43e, type: 3}
+  x_move_speed: 100
+  y_move_speed: 100
   wiggle_bounds: 20
   wiggle_delta: 30
   wiggle_increase_rate: 100
+  local_camera: {fileID: 1500151845}
 --- !u!4 &1933936756
 Transform:
   m_ObjectHideFlags: 0
