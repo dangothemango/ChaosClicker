@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour {
     public Transform[] missleSpawns;
 
     Person virus;
+    float oZ;
 
     public GameObject virusUI;
 
@@ -40,7 +41,7 @@ public class GameManager : MonoBehaviour {
             } else if (superChaos == 3) {
                 StartCoroutine(ZoomInAndPastZero());
             } else if (superChaos == 5) {
-                //TODO start spinning the camera
+                StartCoroutine(RotateCam());
             }
         }
     }
@@ -146,18 +147,20 @@ public class GameManager : MonoBehaviour {
 
     IEnumerator GeneratePlayerChaos() {
         float t = 0;
-        while (t < 1f) {
+        float jumpTime = 1f;
+        while (t < jumpTime) {
             t += Time.deltaTime;
             virusUI.transform.localPosition = new Vector3(0, Mathf.Sin(t * Mathf.PI)*30,0);
             yield return null;
         }
         chaosButton.onClick.Invoke();
         SuperChaos++;
-        yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(2*Mathf.PI-jumpTime);
         StartCoroutine(GeneratePlayerChaos());
     }
 
     IEnumerator ZoomInAndBackToZero() {
+        oZ = cam.transform.position.z;
         float t = 0;
         while (SuperChaos != 3) {
             float prev = t;
@@ -169,12 +172,31 @@ public class GameManager : MonoBehaviour {
     }
 
     IEnumerator ZoomInAndPastZero() {
+        Vector3 pos = cam.transform.position;
+        pos.z = oZ;
+        cam.transform.position = pos;
+        while (cam.transform.position != pos) {
+            cam.transform.position = Vector3.MoveTowards(cam.transform.position, pos, Time.deltaTime * 5);
+            yield return null;
+        }
         float t = 0;
-        while (SuperChaos != 5) {
+        while (true) {
             float prev = t;
             t += Time.deltaTime;
             float cur = t;
             cam.transform.position += transform.forward * (Mathf.Sin(cur) - Mathf.Sin(prev)) * 5;
+            yield return null;
+        }
+    }
+
+    IEnumerator RotateCam() {
+        int dir = Random.Range(0,1f)>.5f? 1: -1;
+        while (true) {
+            cam.transform.RotateAround(Vector3.zero, Vector3.up, Time.deltaTime * 5f);
+            cam.transform.LookAt(Vector3.zero);
+            if (Random.Range(0, 1.0f) > .994) {
+                dir *= -1;
+            }
             yield return null;
         }
     }
