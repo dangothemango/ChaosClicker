@@ -18,7 +18,7 @@ public class SuperSpinner : MonoBehaviour {
 		if (GameManager.INSTANCE.SuperChaos >= threshold) {
             z = Random.Range(0f, 20f);
         }
-        if (GameManager.INSTANCE.SuperChaos >= threshold+1) {
+        if (GameManager.INSTANCE.SuperChaos >= threshold+2) {
             x = Random.Range(0f, 20f);
             y = Random.Range(0f, 20f);
         }
