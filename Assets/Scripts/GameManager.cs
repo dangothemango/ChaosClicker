@@ -46,6 +46,9 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (Input.GetKeyDown(KeyCode.Q)) {
+            Chaos = 0.99f;
+        }
         if (Random.Range(0, 1.0f) > .994f) {
             SpawnCloud();
         }
