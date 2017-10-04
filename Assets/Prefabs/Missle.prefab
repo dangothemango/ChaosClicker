@@ -101,6 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 4
   explosion: {fileID: 1866830789537738, guid: 6d95b4876120d7341aebd1143269832b, type: 2}
+  house: {fileID: 21300000, guid: ddd16c7965732cc45920e9e9a3222b07, type: 3}
 --- !u!212 &212226103066815900
 SpriteRenderer:
   m_ObjectHideFlags: 1

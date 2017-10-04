@@ -8,11 +8,11 @@ public class Missle : MonoBehaviour {
     public GameObject explosion;
 
     Transform target;
+    public Sprite house;
 
 	// Use this for initialization
 	void Start () {
-		
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -25,8 +25,18 @@ public class Missle : MonoBehaviour {
 	}
 
     public void SetTarget(House h) {
+        
         if (h == null) {
             target = GameManager.INSTANCE.GetRandomPerson().transform;
+
+            
+            if (Random.Range(0, 1.0f) > .85f)
+            {
+                print("house time");
+                transform.localScale = new Vector3(.1f, .1f, .1f);
+                GetComponent<SpriteRenderer>().sprite = house;
+            }
+
         }
         else {
             target = h.transform;
