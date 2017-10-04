@@ -10,8 +10,9 @@ public class ChaosButton : MonoBehaviour {
 	public Sprite[] med_chaos_buttons;
 	public Sprite[] high_chaos_buttons;
 
-	public float wiggle_bounds = 90f;
-	public float wiggle_delta = 10f;
+	public float wiggle_bounds = 30f;	//Maximum rotation allowed
+	public float wiggle_delta = 10f;	//Initial Speed to rotate
+	public float wiggle_increase_rate = 30f;	//How much faster to rotate at more chaotic levels
 	bool clockwise = true;
 
 	private Image button_sprite;
@@ -68,11 +69,13 @@ public class ChaosButton : MonoBehaviour {
 	//Wiggle stuff nicely
 	public void WiggleButton(){
 
+		float chaotice_wiggle_delta = wiggle_delta + (GameManager.INSTANCE.Chaos * 30);
+
 		//Perform the rotation
 		if (clockwise) {
-			button.transform.Rotate (0, 0, wiggle_delta * Time.deltaTime);
+			button.transform.Rotate (0, 0, chaotice_wiggle_delta * Time.deltaTime);
 		} else {
-			button.transform.Rotate (0, 0, -1 * wiggle_delta * Time.deltaTime);
+			button.transform.Rotate (0, 0, -1 * chaotice_wiggle_delta * Time.deltaTime);
 		}
 			
 		//Reset direction on bounds
@@ -82,8 +85,6 @@ public class ChaosButton : MonoBehaviour {
 		else if ((button.transform.rotation.z * 100) <= wiggle_bounds * -1){
 			clockwise = !clockwise;
 		}
-
-
 	}
 
 	//Resets button to its original position
