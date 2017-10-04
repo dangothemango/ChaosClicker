@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Person : MonoBehaviour {
 
@@ -9,6 +10,8 @@ public class Person : MonoBehaviour {
     public float magnitude = 1f;
     public float scaleTime = 1f;
     public float launchSpeed = 10f;
+
+	public GameObject interactTooltip;
 
     House target;
     bool seeking = false;
@@ -31,6 +34,8 @@ public class Person : MonoBehaviour {
     public Sprite questionMark;
     public Sprite exclamationMark;
     public Sprite fire;
+	public Sprite[] bubbles;
+	public Sprite ash;
 
 	private AudioSource source;   
 
@@ -71,6 +76,8 @@ public class Person : MonoBehaviour {
             }
         }
 
+		SpawnBubbles ();
+
         if (isOnFire)
         {
             if (Random.Range(0, 1.0f) > .9f)
@@ -84,14 +91,18 @@ public class Person : MonoBehaviour {
                 //ScaleDown(.5f);
                 seeking = false;
 
+				//Spawn ash pile
+				//Body.sprite = ash;
+				//this.transform.localRotation = Vector3.zero;
+				//this.transform.Translate( new Vector3(0, -fire.rect.height, 0));
+
                 Color c = Body.color;
                 c.a -= Time.deltaTime;
                 Body.color = c;
                 print(c.a);
                 if (c.a <= 0)
                 {
-                    print("destroyed?");
-                    Destroy(this.gameObject);
+					Destroy(this.gameObject);
                 }
             }
         }
@@ -165,6 +176,7 @@ public class Person : MonoBehaviour {
     {
         if (sentient) return;
         isOnFire = true;
+		source.GetComponent<AudioController> ().playScream ();
         //seeking = false;
         target = null;
         speed = 2f;
@@ -244,4 +256,31 @@ public class Person : MonoBehaviour {
         GameManager.INSTANCE.ScaleVirusUI();
         Destroy(this.gameObject);
     }
+
+	private void SpawnBubbles(){
+		//Don't redisplay constantly
+		if (Floater.gameObject.activeSelf)
+			return;
+
+		DialogueParser dialogue = GameObject.Find ("DialogueParser").GetComponent<DialogueParser>();
+//		DialogueParser.Dialogue options = dialogue.Get_Dialogue_Options();
+	//	transform.localScale *= 1.5f;
+	//	transform.localRotation = Quaternion.Euler(0,180,0);
+		Floater.gameObject.SetActive(true);
+		Floater.sortingLayerName = "People";
+		Floater.sprite = bubbles[ (int) Random.Range(0, bubbles.Length)];
+
+		//Set the text component to some random neutral statement
+		Text editor = Floater.GetComponent<Text> ();
+
+		int val = (int)Random.Range (0, dialogue.Get_Dialogue_Options ().neutral.Length);
+		editor.text = dialogue.Get_Dialogue_Options ().neutral [val];
+
+		//TODO: Resize shapes to be correct size
+		//TODO: Get text to appear
+		//TODO: Maybe don't spawn this for every person, only have three on screen at a time or something
+
+		//Reach: Be aware of events that have happened nearby (or guess based on chaos), and choose a dialogue option
+		//Reach: Add another portion to the json file saying which dialogue has what emotions
+	}
 }
