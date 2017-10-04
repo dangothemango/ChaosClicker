@@ -76,6 +76,7 @@ GameObject:
   - component: {fileID: 4735284999897780}
   - component: {fileID: 212483226921068716}
   - component: {fileID: 222298255124020752}
+  - component: {fileID: 114902262850416592}
   m_Layer: 0
   m_Name: Floater
   m_TagString: Untagged
@@ -131,8 +132,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1687700421340550}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.7, y: 16.8, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 7.7, y: 10, z: 0}
+  m_LocalScale: {x: 2, y: 1, z: 1}
   m_Children:
   - {fileID: 4164148396269130}
   m_Father: {fileID: 4299269313706882}
@@ -249,6 +250,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15cc4026adbb81947aaf9234a257fff2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114902262850416592
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1687700421340550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15cc4026adbb81947aaf9234a257fff2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114949699998199060
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -299,6 +311,20 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 0137a03f1c314e34cbc8506ca9511f1a, type: 3}
   - {fileID: 21300000, guid: a05df81aab23345429e8e82e1bc4d5a7, type: 3}
   ash: {fileID: 1490906803319488, guid: 6d53a73a55f9eaf4399d616671490431, type: 2}
+  state: neutral
+  chaos_state_options:
+  - confusion
+  - house_fire
+  - house_lightning
+  - house_explosion
+  - house_missile
+  - car_fire
+  - car_lightning
+  - car_explosion
+  - car_missile
+  - person_fire
+  - person_explosion
+  - person_missle
 --- !u!114 &114988608082822738
 MonoBehaviour:
   m_ObjectHideFlags: 1

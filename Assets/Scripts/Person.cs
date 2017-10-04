@@ -36,6 +36,10 @@ public class Person : MonoBehaviour {
     public Sprite fire;
 	public Sprite[] bubbles;
 	public GameObject ash;
+	public string state = "neutral";
+	public string[] chaos_state_options = { "confusion", "house_fire", "house_lightning", "house_explosion",
+			"house_missile", "car_fire", "car_lightning", "car_explosion", 
+		"car_missile", "person_fire",  "person_explosion", "person_missle" };
 
 	private AudioSource source;   
 
@@ -89,15 +93,13 @@ public class Person : MonoBehaviour {
                 //ScaleDown(.5f);
                 seeking = false;
 
-                
-
                 Color c = Body.color;
                 c.a -= Time.deltaTime;
                 Body.color = c;
                 if (c.a <= 0)
                 {
                     //Spawn ash pile
-                    Instantiate(ash, transform.position, transform.localRotation, transform.parent);
+                 	//   Instantiate(ash, transform.position, transform.localRotation, transform.parent);
                     Destroy(this.gameObject);
                 }
             }
@@ -207,12 +209,13 @@ public class Person : MonoBehaviour {
         if (sentient) return;
         if (collision.gameObject.GetComponentInParent<Cloud>() != null) {
             Body.sprite = confused[Random.Range(0,confused.Length)];
+			state = "person_lightning";
         } else if (collision.gameObject.GetComponent<Explosion>() != null){
             seeking = false;
             rigidBody.velocity = (transform.position - collision.transform.position.normalized) * launchSpeed;
+			state = "person_explosion";
             StartCoroutine(LaunchAndDie(2f));
         }
-
 
         if (isOnFire)
         {
@@ -253,7 +256,7 @@ public class Person : MonoBehaviour {
         Destroy(this.gameObject);
     }
 
-	public void SpawnBubbles(string state){
+	public void SpawnBubbles(){
         Debug.Log(state);
         //Don't redisplay constantly
         if (Floater.gameObject.activeSelf) {
@@ -261,7 +264,8 @@ public class Person : MonoBehaviour {
         }
 
 		DialogueParser dialogue = GetComponent<DialogueParser>();
-        dialogue.SpawnBubble();
+        
+		dialogue.SpawnBubble();
 		Floater.gameObject.SetActive(true);
 		Floater.sprite = bubbles[Random.Range(0, bubbles.Length)];
 
@@ -273,7 +277,12 @@ public class Person : MonoBehaviour {
 
         //editor.text = dialogue.Get_Dialogue_Options(state)[val];
 
-        string text = dialogue.Get_Dialogue_Options(state)[val];
+		string tmp_state = state;
+		if (GameManager.INSTANCE.Chaos > .5) {
+			tmp_state = chaos_state_options[ Random.Range (0, chaos_state_options.Length) ];
+		}
+
+        string text = dialogue.Get_Dialogue_Options( tmp_state )[val];
         char[] textCharArr = text.ToCharArray();
 
         int wrapLen = 12; //wrap the text after X characters
@@ -295,30 +304,7 @@ public class Person : MonoBehaviour {
         }
 
         editor.text = new string(textCharArr);
-        /*  
-        Font arial = editor.font;
-		CharacterInfo characterInfo = new CharacterInfo ();
-        float counter = 0f;
-		int index = -1;
-		int newlineIndex = -1;
-		foreach (char c in tmpText){
-			arial.GetCharacterInfo(c, out characterInfo, editor.fontSize); 
-			counter += characterInfo.advance;
-			if (counter >= 4f) {
-				//todo: make a new array with old text + '\n' + remaining text
-				newlineIndex = editor.text.IndexOf(c); //won't work always
-				break;
-			}
-		}
-
-		print ("Text size: " + counter);
-		print ("NewIndex: " + newlineIndex);	//Not changing from 0
-
-		string tmp = editor.text;
-		if (newlineIndex != -1) {
-			tmp = tmp.Insert (newlineIndex, "\n");
-			editor.text = tmp;
-		}//*/
+    
         //Todo add new lines to text
 
         //Reach: Be aware of events that have happened nearby (or guess based on chaos), and choose a dialogue option
