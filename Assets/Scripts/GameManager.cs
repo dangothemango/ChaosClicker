@@ -77,6 +77,11 @@ public class GameManager : MonoBehaviour {
         if (Random.Range(0, 1.0f) > .994f) {
             SpawnCloud();
         }
+        if (Random.Range(0, 1.0f) > .99f) {
+            Person p = GetRandomPerson();
+            while (p.scaling) p = GetRandomPerson();
+            GetRandomPerson().SpawnBubbles("neutral");
+        }
     }
 
     public void AddPerson(Person p) {

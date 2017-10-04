@@ -977,7 +977,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   car: {fileID: 1449145488937462, guid: 380f23b5dc3406b46884ef20750789f8, type: 2}
-  person: {fileID: 1917280621919270, guid: 4fff2507089ad0c439d39039e7a7cddc, type: 2}
+  person: {fileID: 1354279837903754, guid: 96bd5129e666b5749b5a17d2e57466b0, type: 2}
   missle: {fileID: 1012234309905382, guid: 7e22c8d19d8491842abc4b8179083905, type: 2}
   leftSpawn: {fileID: 1249380770141304}
   rightSpawn: {fileID: 1972512725778040}

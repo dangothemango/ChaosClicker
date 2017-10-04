@@ -20,7 +20,7 @@ public class Person : MonoBehaviour {
     int direction = 1;
     Rigidbody2D rigidBody;
     bool sentient = false;
-    bool scaling = false;
+    public bool scaling = false;
 
     bool isOnFire = false;
     float fireTimer = 0;
@@ -75,9 +75,7 @@ public class Person : MonoBehaviour {
                 transform.localRotation = Quaternion.Euler(rot);
             }
         }
-
-		SpawnBubbles ();
-
+        
         if (isOnFire)
         {
             if (Random.Range(0, 1.0f) > .9f)
@@ -240,7 +238,7 @@ public class Person : MonoBehaviour {
         transform.localRotation = Quaternion.Euler(0,180,0);
         Floater.gameObject.SetActive(true);
         Floater.sortingLayerName = "Sentient";
-        Floater.sprite = questionMark;
+        //Floater.sprite = questionMark;
         Body.sprite = confused[Random.Range(0, confused.Length)];
         StartCoroutine(MoveToButton());
         return this;
@@ -257,30 +255,39 @@ public class Person : MonoBehaviour {
         Destroy(this.gameObject);
     }
 
-	private void SpawnBubbles(){
-		//Don't redisplay constantly
-		if (Floater.gameObject.activeSelf)
-			return;
+	public void SpawnBubbles(string state){
+        Debug.Log(state);
+        //Don't redisplay constantly
+        if (Floater.gameObject.activeSelf) {
+            return;
+        }
 
-		DialogueParser dialogue = GameObject.Find ("DialogueParser").GetComponent<DialogueParser>();
-//		DialogueParser.Dialogue options = dialogue.Get_Dialogue_Options();
-	//	transform.localScale *= 1.5f;
-	//	transform.localRotation = Quaternion.Euler(0,180,0);
+		DialogueParser dialogue = GetComponent<DialogueParser>();
+        //		DialogueParser.Dialogue options = dialogue.Get_Dialogue_Options();
+        //	transform.localScale *= 1.5f;
+        //	transform.localRotation = Quaternion.Euler(0,180,0);
+        dialogue.SpawnBubble();
 		Floater.gameObject.SetActive(true);
-		Floater.sortingLayerName = "People";
-		Floater.sprite = bubbles[ (int) Random.Range(0, bubbles.Length)];
+		Floater.sprite = bubbles[Random.Range(0, bubbles.Length)];
 
 		//Set the text component to some random neutral statement
-		Text editor = Floater.GetComponent<Text> ();
+		TextMesh editor = Floater.GetComponentInChildren<TextMesh> ();
 
-		int val = (int)Random.Range (0, dialogue.Get_Dialogue_Options ().neutral.Length);
-		editor.text = dialogue.Get_Dialogue_Options ().neutral [val];
+		int val = (int)Random.Range (0, dialogue.Get_Dialogue_Options (state).Length);
+		editor.text = dialogue.Get_Dialogue_Options(state)[val];
 
-		//TODO: Resize shapes to be correct size
-		//TODO: Get text to appear
-		//TODO: Maybe don't spawn this for every person, only have three on screen at a time or something
+        //TODO: Resize shapes to be correct size
+        //TODO: Get text to appear
+        //TODO: Maybe don't spawn this for every person, only have three on screen at a time or something
 
-		//Reach: Be aware of events that have happened nearby (or guess based on chaos), and choose a dialogue option
-		//Reach: Add another portion to the json file saying which dialogue has what emotions
+        //Reach: Be aware of events that have happened nearby (or guess based on chaos), and choose a dialogue option
+        //Reach: Add another portion to the json file saying which dialogue has what emotions
+
+        StartCoroutine(WaitAndDespawnBubble());
 	}
+
+    IEnumerator WaitAndDespawnBubble() {
+        yield return new WaitForSeconds(5f);
+        GetComponent<DialogueParser>().DespawnBubble();
+    }
 }

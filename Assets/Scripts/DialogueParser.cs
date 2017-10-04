@@ -11,6 +11,7 @@ public class DialogueParser : MonoBehaviour {
 
 	Vector3 tooltipOScale;
 	private Dialogue dialogue;
+
 	Coroutine interactionCoroutine;
 
 
@@ -23,9 +24,42 @@ public class DialogueParser : MonoBehaviour {
 		interactTooltip.transform.localScale = Vector3.zero;
 	}
 
-	public Dialogue Get_Dialogue_Options(){
-		return dialogue;
-	}
+	public string[] Get_Dialogue_Options(string v){
+        switch (v) {
+            case "neutral":
+                return dialogue.neutral;
+            case "confusion":
+                return dialogue.confusion;
+            case "house_fire":
+                return dialogue.house_fire;
+            case "house_lightning":
+                return dialogue.house_lightning;
+            case "house_explosion":
+                return dialogue.house_explosion;
+            case "house_missile":
+                return dialogue.house_missile;
+            case "car_fire":
+                return dialogue.car_fire;
+            case "car_lightning":
+                return dialogue.car_lightning;
+            case "car_explosion":
+                return dialogue.car_explosion;
+            case "car_missile":
+                return dialogue.car_missile;
+            case "person_fire":
+                return dialogue.person_fire;
+            case "person_lightning":
+                return dialogue.person_lightning;
+            case "person_explosion":
+                return dialogue.person_explosion;
+            case "person_missile":
+                return dialogue.person_missile;
+            case "sentient":
+                return dialogue.sentient;
+            default:
+                return new string[0];
+        }
+    }
 
 	public void SpawnBubbles(Person parent){
 		print ("Trying to spawn bubbles");
@@ -40,6 +74,14 @@ public class DialogueParser : MonoBehaviour {
 		interactTooltip.SetActive (true);
 		interactTooltip.transform.position = parent.transform.position;
 	}
+    
+    public void DespawnBubble() {
+        StartCoroutine(ScaleTooltip(-1));
+    }
+
+    public void SpawnBubble() {
+        StartCoroutine(ScaleTooltip(1));
+    }
 
 	IEnumerator ScaleTooltip(int dir) {
 		float t = 0;
