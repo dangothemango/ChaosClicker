@@ -32,7 +32,7 @@ public class Person : MonoBehaviour {
     public Sprite exclamationMark;
     public Sprite fire;
 
-   
+	private AudioSource source;   
 
     // Use this for initialization
     void Start () {
@@ -40,6 +40,7 @@ public class Person : MonoBehaviour {
         StartCoroutine(ScaleUp(scaleTime));
         oRot = transform.localRotation.eulerAngles.z;
         GameManager.INSTANCE.AddPerson(this);
+		source = GameObject.Find ("Audio_Main").GetComponent<AudioSource>();
     }
 	
 	// Update is called once per frame
@@ -132,7 +133,9 @@ public class Person : MonoBehaviour {
         scaling = true;
         Vector2 oScale = transform.localScale;
         float sT = 0;
-        while (sT < scaleTime) {
+		source.GetComponent<AudioController> ().playDoorClose ();		//Trigger sound effect
+
+		while (sT < scaleTime) {
             sT += Time.deltaTime;
             transform.localScale = Vector2.Lerp(oScale, Vector3.zero, sT / scaleTime);
             yield return null;

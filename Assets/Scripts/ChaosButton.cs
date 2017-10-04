@@ -56,7 +56,7 @@ public class ChaosButton : MonoBehaviour {
 	public void RepositionButton(){
 		//If Sentient, reset to initial position
 
-		//High Chaos: Teleport the button around the screen
+		//High Chaos: Teleport the button around the screen??
 		if (GameManager.INSTANCE.Chaos >= .7) {
 			ResetButton();
 		} 

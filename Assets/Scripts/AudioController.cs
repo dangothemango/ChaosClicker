@@ -6,6 +6,7 @@ public class AudioController : MonoBehaviour {
 
 	public AudioClip thunder_clap;
 	public AudioClip missle_strike;
+	public AudioClip door_shut;
 	public float volume = 1f;
 
 	AudioSource source;
@@ -26,6 +27,10 @@ public class AudioController : MonoBehaviour {
 
 	public void playMissle(){
 		source.PlayOneShot (missle_strike, volume);
+	}
+
+	public void playDoorClose(){
+		source.PlayOneShot (door_shut, volume);
 	}
 
 
