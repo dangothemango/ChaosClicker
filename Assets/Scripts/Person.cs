@@ -85,7 +85,7 @@ public class Person : MonoBehaviour {
             //if the fire should no longer be updated
             if (!updateFire())
             {
-                print("should be done");
+                //print("should be done");
                 //ScaleDown(.5f);
                 seeking = false;
 
@@ -94,7 +94,6 @@ public class Person : MonoBehaviour {
                 Color c = Body.color;
                 c.a -= Time.deltaTime;
                 Body.color = c;
-                print(c.a);
                 if (c.a <= 0)
                 {
                     //Spawn ash pile
@@ -271,16 +270,37 @@ public class Person : MonoBehaviour {
 		editor.fontSize = 20;
 
 		int val = (int)Random.Range (0, dialogue.Get_Dialogue_Options (state).Length);
-		editor.text = dialogue.Get_Dialogue_Options(state)[val];
 
-		Font arial = editor.font;
+        //editor.text = dialogue.Get_Dialogue_Options(state)[val];
+
+        string text = dialogue.Get_Dialogue_Options(state)[val];
+        char[] textCharArr = text.ToCharArray();
+
+        int wrapLen = 12; //wrap the text after X characters
+        int counter = 0;
+        int lastSpaceIndex = 0;
+        for (int i = 0; i < textCharArr.Length; i++)
+        {
+            if (textCharArr[i] == ' ')
+            {
+                lastSpaceIndex = i;
+            }
+            if (counter > wrapLen)
+            {
+                //text = text.Substring(0, lastSpaceIndex - 1) + "\n" + text.Substring(lastSpaceIndex + 1);
+                textCharArr[lastSpaceIndex] = '\n';
+                counter = 0;
+            }
+            counter++;
+        }
+
+        editor.text = new string(textCharArr);
+        /*  
+        Font arial = editor.font;
 		CharacterInfo characterInfo = new CharacterInfo ();
-
-		char[] tmpText = editor.text.ToCharArray();
-		float counter = 0f;
+        float counter = 0f;
 		int index = -1;
 		int newlineIndex = -1;
-
 		foreach (char c in tmpText){
 			arial.GetCharacterInfo(c, out characterInfo, editor.fontSize); 
 			counter += characterInfo.advance;
@@ -298,8 +318,8 @@ public class Person : MonoBehaviour {
 		if (newlineIndex != -1) {
 			tmp = tmp.Insert (newlineIndex, "\n");
 			editor.text = tmp;
-		}
-		//Todo add new lines to text
+		}//*/
+        //Todo add new lines to text
 
         //Reach: Be aware of events that have happened nearby (or guess based on chaos), and choose a dialogue option
         //Reach: Add another portion to the json file saying which dialogue has what emotions
