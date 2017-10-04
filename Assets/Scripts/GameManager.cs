@@ -153,7 +153,7 @@ public class GameManager : MonoBehaviour {
         }
         chaosButton.onClick.Invoke();
         SuperChaos++;
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(6f);
         StartCoroutine(GeneratePlayerChaos());
     }
 
