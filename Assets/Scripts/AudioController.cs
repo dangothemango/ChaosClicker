@@ -8,6 +8,7 @@ public class AudioController : MonoBehaviour {
 	public AudioClip missle_strike;
 	public AudioClip door_shut;
 	public AudioClip car_horn;
+	public AudioClip[] screams;
 	public float volume = 1f;
 
 	AudioSource source;
@@ -38,5 +39,7 @@ public class AudioController : MonoBehaviour {
 		source.PlayOneShot (car_horn, volume);
 	}
 
-
+	public void playScream(){
+		source.PlayOneShot (screams [(int)Random.Range (0, screams.Length)], volume);
+	}
 }

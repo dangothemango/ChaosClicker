@@ -165,6 +165,7 @@ public class Person : MonoBehaviour {
     {
         if (sentient) return;
         isOnFire = true;
+		source.GetComponent<AudioController> ().playScream ();
         //seeking = false;
         target = null;
         speed = 2f;
