@@ -143,7 +143,7 @@ public class GameManager : MonoBehaviour {
             virus = GetRandomPerson().BecomeSentient();
 			virus.state = "sentient";
             people.Remove(virus);
-        } else if (chaosRoutine ==null){
+        } else if (virus!=null && chaosRoutine ==null){
             chaosRoutine = StartCoroutine(GeneratePlayerChaos());
         }
         Debug.Log(Chaos);
