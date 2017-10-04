@@ -92,6 +92,8 @@ public class DialogueParser : MonoBehaviour {
 			t+= Time.deltaTime;
 			yield return null;
 		}
+
+		interactTooltip.transform.localScale = destScale;
 	}
 
 	[System.Serializable]
