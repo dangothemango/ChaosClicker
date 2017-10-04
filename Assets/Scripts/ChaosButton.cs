@@ -59,6 +59,7 @@ public class ChaosButton : MonoBehaviour {
 		//High Chaos: Teleport the button around the screen??
 		if (GameManager.INSTANCE.Chaos >= .7) {
 			ResetButton();
+			return;
 		} 
 
 		//Medium Chaos: Move the button around the screen faster & move left & right

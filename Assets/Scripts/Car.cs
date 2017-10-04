@@ -14,6 +14,9 @@ public class Car : MonoBehaviour {
     float t = 0;
     Rigidbody2D rigidBody;
     bool dying;
+	AudioSource source;
+	float honk_timer = 10f;
+	float current_honk_timer;
 
     private void Awake() {
         direction = transform.localPosition.x < 0 ? 1 : -1;
@@ -21,6 +24,12 @@ public class Car : MonoBehaviour {
         oY = transform.localPosition.y;
         rigidBody = GetComponent<Rigidbody2D>();
 
+		//Initialize audio source
+		source = GameObject.Find ("Audio_Main").GetComponent<AudioSource>();
+
+		//Setup timers for checking if a car honks
+		honk_timer += Random.Range (-5, 5) + GameManager.INSTANCE.Chaos;
+		current_honk_timer = honk_timer;
     }
 
     // Use this for initialization
@@ -36,6 +45,15 @@ public class Car : MonoBehaviour {
         newP.x += direction * speed * Time.deltaTime;
         newP.y = oY + Mathf.Sin(period * t) / magnitude;
         transform.localPosition = newP;
+
+		//Reset timer & honk on cooldown
+		if (current_honk_timer <= 0) {
+			CheckHornHonk ();
+			current_honk_timer = honk_timer;
+		}
+
+		//Decrement timer
+		current_honk_timer -= Time.fixedDeltaTime;
     }
 
     public void OnBecameInvisible() {
@@ -52,6 +70,13 @@ public class Car : MonoBehaviour {
             StartCoroutine(LaunchAndDie(2f));
         }
     }
+
+	public void CheckHornHonk(){
+		if (Random.Range (0, 1.5f) < .5f + GameManager.INSTANCE.Chaos)
+			return;
+		
+		source.GetComponent<AudioController> ().playCarHorn ();
+	}
 
     IEnumerator LaunchAndDie(float t) {
         dying = true;
