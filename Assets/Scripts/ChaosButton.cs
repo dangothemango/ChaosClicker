@@ -14,10 +14,10 @@ public class ChaosButton : MonoBehaviour {
 	public float y_default_move_speed = 10f;		//How fast does the button move
 	public float change_move_speed = 20f;			//How much to increase the speed by each click at high chaos
 
-	float x_max_move_speed = 100f;			//How fast *can* the button move
-	float x_min_move_speed = 40f;
-	float y_max_move_speed = 100f;			//How fast *can* the button move
-	float y_min_move_speed = 40f;
+	float x_max_move_speed = 7f;			//How fast *can* the button move
+	float x_min_move_speed = 5f;
+	float y_max_move_speed = 7f;			//How fast *can* the button move
+	float y_min_move_speed = 5f;
 
 	public float wiggle_bounds = 30f;	//Maximum rotation allowed
 	public float wiggle_delta = 10f;	//Initial Speed to rotate
@@ -122,7 +122,7 @@ public class ChaosButton : MonoBehaviour {
 	//On higher chaos, change the speed of the button on click, and increase the lowest speed at each click
 	public void ChangeButtonSpeed(){
 
-		if (GameManager.INSTANCE.Chaos < .6)
+		if (GameManager.INSTANCE.Chaos < .7)
 			return;
 
 		//Re-roll the current speed
@@ -134,10 +134,8 @@ public class ChaosButton : MonoBehaviour {
 		y_default_move_speed = (y_default_move_speed > 0 ) ? new_y_speed : -new_y_speed;
 
 		//Change the minimum speed to be faster
-		x_max_move_speed += change_move_speed;
-		x_min_move_speed += change_move_speed/2;
-		y_max_move_speed += change_move_speed;
-		y_min_move_speed += change_move_speed/2;
+		x_max_move_speed += change_move_speed/2;
+		y_max_move_speed += change_move_speed/2;
 	}
 
 	//Resets button to its original position
